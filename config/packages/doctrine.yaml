@@ -1,0 +1,123 @@
+parameters:
+    # Adds a fallback DATABASE_URL if the env var is not set.
+    # This allows you to run cache:warmup even if your
+    # environment variables are not available yet.
+    # You should not need to change this value.
+    env(DATABASE_URL): ''
+
+doctrine:
+    dbal:
+        default_connection: access
+        connections:
+            access:
+                dbname:   access
+                driver:   'pdo_mysql'
+                server_version: '8.0'
+                host:     '%env(DATABASE_HOST)%'
+                port: 3306
+                password: '%env(DATABASE_PASSWORD)%'
+                charset: utf8mb4
+            competition:
+                dbname:   competition
+                driver:   'pdo_mysql'
+                server_version: '8.0'
+                host:     '%env(DATABASE_HOST)%'
+                port:     3306
+                user:     '%env(DATABASE_USER)%'
+                password: '%env(DATABASE_PASSWORD)%'
+                charset: utf8mb4
+            model:
+                dbname:   model
+                driver:   'pdo_mysql'
+                server_version: '8.0'
+                host:     '%env(DATABASE_HOST)%'
+                port:     3306
+                user:     '%env(DATABASE_USER)%'
+                password: '%env(DATABASE_PASSWORD)%'
+                charset: utf8mb4
+            sales:
+                dbname:   sales
+                driver:   'pdo_mysql'
+                server_version: '8.0'
+                host:     '%env(DATABASE_HOST)%'
+                port:     3306
+                user:     '%env(DATABASE_USER)%'
+                password: '%env(DATABASE_PASSWORD)%'
+                charset: utf8mb4
+            setup:
+                dbname:   setup
+                driver:   'pdo_mysql'
+                server_version: '8.0'
+                host:     '%env(DATABASE_HOST)%'
+                port:     3306
+                user:     '%env(DATABASE_USER)%'
+                password: '%env(DATABASE_PASSWORD)%'
+                charset: utf8mb4
+            score:
+                dbname:   score
+                driver:   'pdo_mysql'
+                server_version: '8.0'
+                host:     '%env(DATABASE_HOST)%'
+                port:     3306
+                user:     '%env(DATABASE_USER)%'
+                password: '%env(DATABASE_PASSWORD)%'
+                charset: utf8mb4
+
+    orm:
+        auto_generate_proxy_classes: '%kernel.debug%'
+        default_entity_manager: access
+        entity_managers:
+            access:
+                connection: access
+                mappings:
+                    Access:
+                        is_bundle: false
+                        type: annotation
+                        dir:  '%kernel.project_dir%/src/Entity/Access'
+                        prefix: 'App\Entity\Access'
+                        alias: Access
+            competition:
+                connection: competition
+                mappings:
+                    Competition:
+                        is_bundle: false
+                        type: annotation
+                        dir:  '%kernel.project_dir%/src/Entity/Competition'
+                        prefix: 'App\Entity\Competition'
+                        alias: Competition
+            model:
+                connection: model
+                mappings:
+                    Model:
+                        is_bundle: false
+                        type: annotation
+                        dir:  '%kernel.project_dir%/src/Entity/Model'
+                        prefix: 'App\Entity\Model'
+                        alias: Model
+            sales:
+                connection: sales
+                mappings:
+                    Sales:
+                        is_bundle: false
+                        type: annotation
+                        dir:  '%kernel.project_dir%/src/Entity/Sales'
+                        prefix: 'App\Entity\Sales'
+                        alias: Sales
+            setup:
+                connection: setup
+                mappings:
+                    Sales:
+                        is_bundle: false
+                        type: annotation
+                        dir:  '%kernel.project_dir%/src/Entity/Setup'
+                        prefix: 'App\Entity\Setup'
+                        alias: Setup
+            score:
+                connection: score
+                mappings:
+                    Sales:
+                        is_bundle: false
+                        type: annotation
+                        dir:  '%kernel.project_dir%/src/Entity/Score'
+                        prefix: 'App\Entity\Score'
+                        alias: Score

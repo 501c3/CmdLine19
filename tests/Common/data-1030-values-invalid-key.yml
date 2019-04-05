@@ -1,0 +1,6 @@
+style:
+  International: {abbr: I}
+  American: {abbr: A}
+invalid-key:
+  Rhythm: {abbr: AR}
+

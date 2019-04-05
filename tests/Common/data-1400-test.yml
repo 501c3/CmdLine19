@@ -1,0 +1,12 @@
+- type: Amateur
+  status: [Student-Student,Teacher-Student]
+  sex:
+  - Male-Female
+  - Male-Male
+  - Female-Female
+  age:
+  - Y01-04
+  - Y05-05
+  proficiency:
+  - Social
+  - Newcomer

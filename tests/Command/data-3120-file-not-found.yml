@@ -1,0 +1,6 @@
+models: tests/Common/setup-01-models.yml
+domains: tests/Common/setup-02-domains.yml
+persons: tests/Common/persons.yml
+teams: tests/Common/not_found.yml
+event-values: tests/Common/setup-03-values.yml
+model-events: tests/Common/model-events.yml

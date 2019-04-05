@@ -1,0 +1,13 @@
+ISTD Medal Exams-2019:
+- proficiency:
+    Pre Bronze:
+    - style:
+        American:
+          disposition: multiple-events
+          substyle:
+            Rhythm: [[Cha Cha,Rumba]]
+            Smooth: [[Waltz,Tango]]
+  invalid_key: [Under 6]
+  sex: [Mixed-Sex]
+  type: Amateur
+  status: [Student-Student,Teacher-Student]

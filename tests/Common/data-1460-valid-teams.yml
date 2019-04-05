@@ -1,0 +1,10 @@
+- type: Amateur-Amateur
+  status: Student-Student
+  sex:
+  - Male-Female
+  age:
+    Y01-04: [1-4,1-4]
+  proficiency:
+    Pre Bronze:
+    - Newcomer
+    - Pre Bronze

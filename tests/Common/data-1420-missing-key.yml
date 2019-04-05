@@ -1,0 +1,8 @@
+- type: Amateur
+  status: Student-Student
+  age:
+    Y01-04: [1-4,1-4]
+    Y05-05: [5-5,3-5]
+  proficiency:
+    Social: [Social]
+    Newcomer: [Social]

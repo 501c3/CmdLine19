@@ -1,0 +1,12 @@
+- type: Amateur
+  status: Student
+  sex:
+  - Male
+  - Female
+  age: 1 16
+  proficiency:
+  - Social
+  - Newcomer
+  designate:
+  - A
+  - B

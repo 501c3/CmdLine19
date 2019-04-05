@@ -1,0 +1,23 @@
+- type: Amateur-Amateur
+  status: Student-Student
+  sex:
+  - Male-Female
+  age:
+    Y01-04: [1-4,1-4]
+    Y05-05: [5-5,4-5]
+  proficiency:
+    Social:
+    - Social
+    Newcomer:
+    - Newcomer
+- type: Amateur
+  status: Student
+  sex:
+  - Male
+  - Female
+  age:
+    Y01-04: [1-4]
+    Y05-05: [5-5]
+  proficiency:
+    Social: []
+    Newcomer: []

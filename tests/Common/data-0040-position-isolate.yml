@@ -1,0 +1,13 @@
+-
+  comment: First Comment
+  key1: Value 1
+  key2: Value 2
+  key3: Value 3
+-
+  comment: Second Comment
+  key1: [Value 1A, Value 1B, Value 1C]
+  key2: {key2A: Value 2A, key2B: Value 2B, key2C: Value 2C}
+  key3:
+    - key3A: Value 3A
+      key3B: Value 3B
+      key3C: Value 3C

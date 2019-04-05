@@ -1,0 +1,87 @@
+- type: Amateur
+  status: Student
+  sex:
+  - Male
+  - Female
+  age: 1-15
+  proficiency:
+  - Social
+  - Newcomer
+  - Pre Bronze
+  - Intermediate Bronze
+  - Full Bronze
+  - Open Bronze
+  - Bronze
+  - Pre Silver
+  - Intermediate Silver
+  - Full Silver
+  - Open Silver
+  - Silver
+  - Pre Gold
+  - Intermediate Gold
+  - Full Gold
+  - Open Gold
+  - Gold
+  designate:
+  - A
+  - B
+- type: Amateur
+  status: Student
+  sex:
+  - Male
+  - Female
+  age: 16-99
+  proficiency:
+  - Social
+  - Newcomer
+  - Pre Bronze
+  - Intermediate Bronze
+  - Full Bronze
+  - Open Bronze
+  - Bronze
+  - Pre Silver
+  - Intermediate Silver
+  - Full Silver
+  - Open Silver
+  - Silver
+  - Pre Gold
+  - Intermediate Gold
+  - Full Gold
+  - Open Gold
+  - Gold
+  - Novice
+  - Pre Championship
+  - Gold Star 1
+  - Championship
+  - Gold Star 2
+  designate:
+  - A
+  - B
+- type: Amateur
+  status: Teacher
+  sex: [Male,Female]
+  age: 16-99
+  proficiency:
+  - Pre Gold
+  - Intermediate Gold
+  - Full Gold
+  - Open Gold
+  - Gold
+  - Novice
+  - Pre Championship
+  - Gold Star 1
+  - Championship
+  - Gold Star 2
+  designate:
+  - A
+  - B
+- type: Professional
+  status: Teacher
+  sex: [Male,Female]
+  age: 0-0
+  proficiency:
+  - Rising Star
+  - Professional
+  designate:
+  - A
+  - B

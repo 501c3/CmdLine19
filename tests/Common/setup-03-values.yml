@@ -1,0 +1,191 @@
+style:
+  International: {abbr: I}
+  American: {abbr: A}
+  Country: {abbr: C}
+  Fun Events: {abbr: F}
+substyle:
+  Rhythm: {abbr: AR}
+  Smooth: {abbr: AS}
+  Latin: {abbr: IL}
+  Standard: {abbr: IS}
+  Theater Arts: {abbr: TA}
+  Western: {abbr: CW}
+  Caberet: {abbr: Cab}
+  Night Club: {abbr: NC}
+  Argentine: {abbr: Ar}
+  Novelty: {abbr: N}
+status:
+  Teacher: {abbr: T}
+  Student: {abbr: S}
+  Teacher-Student: {abbr: TS}
+  Student-Student: {abbr: SS}
+  Teacher-Teacher: {abbr: TT}
+  Mixed Status: {abbr: MS}
+  Team 8 Person: {abbr: T8}
+type:
+  Amateur: {abbr: Am}
+  Professional: {abbr: Pro}
+  Social: {abbr: Soc}
+  Amateur-Amateur: {abbr: Am-Am}
+  Professional-Amateur: {abbr: ProAm}
+  Professional-Professional: {abbr: ProPro}
+  Mixed Type: {abbr: MT}
+sex:
+  Male: {abbr: M}
+  Female: {abbr: F}
+  Male-Male: {abbr: MM}
+  Female-Female: {abbr: FF}
+  Male-Female: {abbr: MF}
+  Same Sex: {abbr: SS}
+  Mixed Sex: {abbr: MS}
+proficiency:
+  Social: {abbr: S}
+  Newcomer: {abbr: NC}
+  Pre Bronze: {abbr: PB}
+  Intermediate Bronze: {abbr: IB}
+  Full Bronze: {abbr: FB}
+  Open Bronze: {abbr: OB}
+  Bronze: {abbr: B}
+  Pre Silver: {abbr: PS}
+  Intermediate Silver: {abbr: IS}
+  Full Silver: {abbr: FS}
+  Open Silver: {abbr: OS}
+  Silver: {abbr: S}
+  Pre Gold: {abbr: PG}
+  Intermediate Gold: {abbr: IG}
+  Full Gold: {abbr: FG}
+  Open Gold: {abbr: OG}
+  Gold: {abbr: G}
+  Novice: {abbr: N}
+  Pre Championship: {abbr: PC}
+  Gold Star 1: {abbr: GS1}
+  Championship: {abbr: C}
+  Gold Star 2: {abbr: GS2}
+  Rising Star: {abbr: R}
+  Professional: {abbr: Pro}
+age:
+  Y00-00: {abbr: Pro, note: Professional}
+  Y01-04: {abbr: BY,  note: Baby}
+  Y05-05: {abbr: JV,  note: Juvenile}
+  Y06-06: {abbr: JV,  note: Juvenile}
+  Y07-07: {abbr: PT1, note: Preteen 1}
+  Y08-08: {abbr: PT1, note: Preteen 1}
+  Y09-09: {abbr: PT1, note: Preteen 1}
+  Y10-10: {abbr: PT2, note: Preteen 2}
+  Y11-11: {abbr: PT2, note: Preteen 2}
+  Y12-12: {abbr: J1,  note: Junior 1}
+  Y13-13: {abbr: J1,  note: Junior 2}
+  Y14-14: {abbr: J2,  note: Junior 2}
+  Y15-15: {abbr: J2,  note: Junior 2}
+  Y16-16: {abbr: Y,   note: Youth}
+  Y17-17: {abbr: Y,   note: Youth}
+  Y18-18: {abbr: Y,   note: Youth}
+  Y19-34: {abbr: A,   note: Adult}
+  Y35-44: {abbr: S1,  note: Senior 1}
+  Y45-49: {abbr: S2,  note: Senior 2}
+  Y50-54: {abbr: S2,  note: Senior 2}
+  Y55-64: {abbr: S3,  note: Senior 3}
+  Y65-74: {abbr: S4,  note: Senior 4}
+  Y75-99: {abbr: S5,  note: Senior 5}
+  Under 6: {abbr: U6, note: ISTD}
+  Under 8: {abbr: U8, note: ISTD}
+  Under 12: {abbr: U12, note: ISTD}
+  Junior 12-16: {abbr: J12, note: ISTD}
+  Adult 16-50: {abbr: A, note: ISTD}
+  Senior 50: {abbr: S50, note: ISTD}
+  Preteen 1: {abbr: PT1, note: USA Dance}
+  Preteen 2: {abbr: PT2, note: USA Dance}
+  Junior 1: {abbr: J1, note: USA Dance}
+  Junior 2: {abbr: J2, note: USA Dance}
+  Youth: {abbr: Y, note: USA Dance}
+  Adult: {abbr: A, note: USA Dance}
+  Senior 1: {abbr: S1, note: USA Dance}
+  Senior 2: {abbr: S2, note: USA Dance}
+  Senior 3: {abbr: S3, note: USA Dance}
+  Senior 4: {abbr: S4, note: USA Dance}
+  Senior 5: {abbr: S5, note: USA Dance}
+  Senior: {abbr: S, note: USA Dance}
+  Baby: {abbr: BY, note: Georgia DanceSport}
+  Juvenile: {abbr: JV, note: Georgia DanceSport}
+  Youth-Senior: {abbr: YS, note: Georgia DanceSport}
+  Youth-Senior 5: {abbr: YS5, note: Georgia DanceSport}
+  Adult-Senior 2: {abbr: AS2, note: Georgia DanceSport}
+  Senior 3-Senior 5: {abbr: S35, note: Georgia DanceSport}
+  Adult-Youth: {abbr: AY, note: Georgia DanceSport}
+  Senior-Youth: {abbr: SY, note: Georgia DanceSport}
+  College-College: {abbr: C, note: Georgia DanceSport}
+  Adult-College: {abbr: AC, note: Georgia DanceSport}
+  Baby-Preteen 2: {abbr: BPT, note: Georgia DanceSport}
+  JV 8: {abbr: JV, note: NDCA}
+  PT 9-11: {abbr: PT, note: NDCA}
+  JR 12-15: {abbr: JR, note: NDCA}
+  Y 16-20: {abbr: Y, note: NDCA}
+  A 21-50: {abbr: A, note: NDCA}
+  A1 21-35: {abbr: A1, note: NDCA}
+  A2 36-50: {abbr: A2, note: NDCA}
+  B 51-70: {abbr: B, note: NDCA}
+  B1 51-60: {abbr: B1, note: NDCA}
+  B2 61-70: {abbr: B2, note: NDCA}
+  C1 71-80: {abbr: C1, note: NDCA}
+  C2-81-99: {abbr: C2, note: NDCA}
+  C 71+: {abbr: C, note: NDCA}
+  Preteen: {abbr: PT, note: NDCA}
+  Junior: {abbr: JR, note: NDCA}
+  Under 45: {abbr: 45-, note: NDCA}
+  Over 46: {abbr: 46+, note: NDCA}
+  Senior 65+: {abbr: 65+, note: NDCA}
+  Under 21: {abbr: 21-, note: NDCA}
+tag:
+  Parent-Child: {abbr: PC}
+  Grandparent-Child: {abbr: GC}
+  Student-Male: {abbr: SM}
+  Student-Female: {abbr: SF}
+  Introductory Tests: {abbr: IT, note: ISTD}
+  One Dance Tests: {abbr: ODT, note: ISTD}
+  Medal Series: {abbr: MS, note: ISTD}
+  Opposite: {abbr: O, note: ISTD}
+  Family: {abbr: F}
+  Qualifier: {abbr: Q}
+  Scholarship: {abbr: S}
+  Jack & Jill: {abbr: JJ}
+dance:
+  Cha Cha: {abbr: CC}
+  Samba: {abbr: Sa}
+  Rumba: {abbr: R}
+  Paso Doble: {abbr: PD}
+  Jive: {abbr: J}
+  Swing: {abbr: Sw}
+  Bolero: {abbr: B}
+  Mambo: {abbr: M}
+  Salsa: {abbr: Sal}
+  West Coast Swing: {abbr: WCS}
+  Merengue: {abbr: Mer}
+  Night Club: {abbr: NC}
+  Hustle: {abbr: H}
+  Chicken Dance: {abbr: CD}
+  Waltz: {abbr: W}
+  Tango: {abbr: T}
+  Viennese Waltz: {abbr: VW}
+  Foxtrot: {abbr: F}
+  Quickstep: {abbr: QS}
+  Argentine Tango: {abbr: AT}
+  Peabody: {abbr: PB}
+  Valtz: {abbr: V}
+  Melonga: {abbr: Mel}
+  2-Step: {abbr: 2-S}
+  Nightclub: {abbr: NC}
+  Polka: {abbr: Plka}
+  Triple Two: {abbr: TT}
+  Performance: {abbr: P}
+designate:
+  A: {abbr: 'a'}
+  B: {abbr: 'b'}
+genre:
+  International: {domain: 'style'}
+  American: {domain: 'style'}
+  Standard: {domain: 'substyle'}
+  Smooth: {domain: 'substyle'}
+  Latin: {domain: 'substyle'}
+  Rhythm: {domain: 'substyle'}
+  Fun Events: {domain: 'style'}
+  Novelty: {domain: 'substyle'}

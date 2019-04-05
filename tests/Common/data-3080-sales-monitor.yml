@@ -1,0 +1,62 @@
+comment:
+    - Copyright 2019 Mark Garber
+    - For testing purposes only.
+channel: Georgia DanceSport
+competition: Georgia DanceSport Competition
+logo: dancers-icon.png
+venue: Ballroom Impact
+city: Sandy Springs
+state: GA
+date: {start: 2019-09-21,finish: 2019-09-22}
+monitor:
+    Mark Garber: not_valid_email
+    Steve Garber: 501c3.management@gmail.com
+inventory:
+    2019-09-01:
+        participant:
+            Per Dance Child: 10.00
+            Per Dance Adult: 15.00
+            Maximum Child: 80.00
+            Maximum Adult: 110.00
+        extra:
+            Spectator Adult: 10.00
+            Spectator Child: 7.00
+            Printed Program: 7.00
+        penalty:
+            Late Competitor: 30.00
+        2019-06-01:
+            participant:
+                Per Dance Child: 8.00
+                Per Dance Adult: 8.00
+                Maximum Child: 60.00
+                Maximum Adult: 90.00
+            extra:
+                Spectator Adult: 10.00
+                Spectator Child: 7.00
+                Printed Program: 7.00
+            discount:
+                Early Bird: 0.30
+            penalty:
+                Late Competitor: 30.00
+processor:
+    PayPal:
+        test:
+            mode: sandbox
+            acct1.clientId: CLIENT_ID_TEST_PAYPAL
+            acct1.clientSecret: CLIENT_SECRET_TEST_PAYPAL
+            http.ConnectionTimeout: CLIENT_TIMEOUT
+            http.Retry: HTTP_RETRY
+            service.EndPoint: CLIENT_ENDPOINT_TEST
+            log.LogEnabled: true
+            log.FileName: PayPal.log
+            log.LogLevel: DEBUG
+        prod:
+            mode: live
+            acct1.clientId: CLIENT_ID_PROD_PAYPAL
+            acct1.clientSecret: CLIENT_SECRET_PROD_PAYPAL
+            http.ConnectionTimeout: CLIENT_TIMEOUT
+            http.Retry: HTTP_RETRY
+            service.EndPoint: CLIENT_ENDPOINT_PROD
+            log.LogEnabled: true
+            log.FileName: PayPal.log
+            log.LogLevel: FINE

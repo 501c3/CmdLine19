@@ -1,0 +1,15 @@
+ISTD Medal Exams-2019:
+    genre: [Rhythm,Smooth,Latin,Standard]
+    invalid_key: [International,American]
+    substyle: [Rhythm,Smooth,Latin,Standard]
+    type: [Amateur,Professional,Professional-Amateur]
+    status: [Teacher-Teacher,Teacher-Student,Student-Student]
+    sex: [Mixed-Sex]
+    proficiency: [Pre Bronze,Bronze,Silver,Gold,Gold Star 1,Gold Star 2]
+    age: [Under 6,Under 8,Under 12,Junior 12-16,Adult 16-50,Senior 50]
+    tag: [Introductory Tests,One Dance Tests,Medal Series,Opposite]
+    dance:
+    - Cha Cha
+    - Samba
+    - Rumba
+    - Paso Doble

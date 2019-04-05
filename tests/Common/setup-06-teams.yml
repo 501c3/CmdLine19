@@ -1,0 +1,387 @@
+- type: Amateur
+  status: Student
+  sex:
+  - Male
+  - Female
+  age:
+    Y01-04: [1-4]
+    Y05-05: [5-5]
+    Y06-06: [6-6]
+    Y07-07: [7-7]
+    Y08-08: [8-8]
+    Y09-09: [9-9]
+    Y10-10: [10-10]
+    Y11-11: [11-11]
+    Y12-12: [12-12]
+    Y13-13: [13-13]
+    Y14-14: [14-14]
+    Y15-15: [15-15]
+    Y16-16: [16-16]
+    Y17-17: [17-17]
+    Y18-18: [18-18]
+  proficiency:
+    Social: []
+    Newcomer: []
+    Pre Bronze: []
+    Intermediate Bronze: []
+    Full Bronze: []
+    Open Bronze: []
+    Bronze: []
+    Pre Silver: []
+    Intermediate Silver: []
+    Full Silver: []
+    Open Silver: []
+    Silver: []
+    Pre Gold: []
+    Intermediate Gold: []
+    Full Gold: []
+    Open Gold: []
+    Gold: []
+- type: Amateur-Amateur
+  status: Student-Student
+  sex:
+  - Male-Female
+  - Male-Male
+  - Female-Female
+  age:
+    Y01-04: [1-4,1-4]
+    Y05-05: [5-5,4-5]
+    Y06-06: [6-6,5-6]
+    Y07-07: [7-7,5-7]
+    Y08-08: [8-8,5-8]
+    Y09-09: [9-9,5-9]
+    Y10-10: [10-10,7-10]
+    Y11-11: [11-11,7-11]
+    Y12-12: [12-12,10-12]
+    Y13-13: [13-13,10-13]
+    Y14-14: [14-14,12-14]
+    Y15-15: [15-15,12-15]
+    Y16-16: [16-16,14-16]
+    Y17-17: [17-17,14-17]
+    Y18-18: [18-18,14-18]
+    Y19-34: [19-34,16-34]
+    Y35-44: [30-44,35-44]
+    Y45-49: [40-49,45-49]
+    Y50-54: [50-54,50-54]
+    Y55-64: [50-64,55-64]
+    Y65-74: [50-74,65-74]
+    Y75-99: [70-99,75-99]
+  proficiency:
+    Social:
+    - Social
+    Newcomer:
+    - Newcomer
+    Pre Bronze:
+    - Newcomer
+    - Pre Bronze
+    Intermediate Bronze:
+    - Newcomer
+    - Pre Bronze
+    - Intermediate Bronze
+    Full Bronze:
+    - Pre Bronze
+    - Intermediate Bronze
+    - Full Bronze
+    Open Bronze:
+    - Newcomer
+    - Pre Bronze
+    - Intermediate Bronze
+    - Full Bronze
+    - Open Bronze
+    Bronze:
+    - Newcomer
+    - Pre Bronze
+    - Intermediate Bronze
+    - Full Bronze
+    - Open Bronze
+    - Bronze
+    Pre Silver:
+    - Pre Bronze
+    - Intermediate Bronze
+    - Full Bronze
+    - Open Bronze
+    - Bronze
+    - Pre Silver
+    Intermediate Silver:
+    - Pre Bronze
+    - Intermediate Bronze
+    - Full Bronze
+    - Open Bronze
+    - Bronze
+    - Pre Silver
+    - Intermediate Silver
+    Full Silver:
+    - Pre Bronze
+    - Intermediate Bronze
+    - Full Bronze
+    - Open Bronze
+    - Bronze
+    - Pre Silver
+    - Intermediate Silver
+    - Full Silver
+    Open Silver:
+    - Pre Bronze
+    - Intermediate Bronze
+    - Full Bronze
+    - Open Bronze
+    - Bronze
+    - Pre Silver
+    - Intermediate Silver
+    - Full Silver
+    - Open Silver
+    Silver:
+    - Pre Bronze
+    - Intermediate Bronze
+    - Full Bronze
+    - Open Bronze
+    - Bronze
+    - Pre Silver
+    - Intermediate Silver
+    - Full Silver
+    - Open Silver
+    - Silver
+    Pre Gold:
+    - Pre Silver
+    - Intermediate Silver
+    - Full Silver
+    - Open Silver
+    - Silver
+    - Pre Gold
+    Intermediate Gold:
+    - Pre Silver
+    - Intermediate Silver
+    - Full Silver
+    - Open Silver
+    - Silver
+    - Pre Gold
+    - Intermediate Gold
+    Full Gold:
+    - Pre Silver
+    - Intermediate Silver
+    - Full Silver
+    - Open Silver
+    - Silver
+    - Pre Gold
+    - Intermediate Gold
+    - Full Gold
+    Open Gold:
+    - Pre Silver
+    - Intermediate Silver
+    - Full Silver
+    - Open Silver
+    - Silver
+    - Pre Gold
+    - Intermediate Gold
+    - Full Gold
+    - Open Gold
+    Gold:
+    - Pre Silver
+    - Intermediate Silver
+    - Full Silver
+    - Open Silver
+    - Silver
+    - Pre Gold
+    - Intermediate Gold
+    - Full Gold
+    - Open Gold
+    - Gold
+    Novice:
+    - Pre Silver
+    - Intermediate Silver
+    - Full Silver
+    - Open Silver
+    - Silver
+    - Pre Gold
+    - Intermediate Gold
+    - Full Gold
+    - Open Gold
+    - Gold
+    - Novice
+    Pre Championship:
+    - Pre Gold
+    - Intermediate Gold
+    - Full Gold
+    - Open Gold
+    - Gold
+    - Novice
+    - Gold Star 1
+    - Pre Championship
+    Gold Star 1:
+    - Pre Gold
+    - Intermediate Gold
+    - Full Gold
+    - Open Gold
+    - Gold
+    - Novice
+    - Gold Star 1
+    - Pre Championship
+    Championship:
+    - Gold Star 1
+    - Pre Championship
+    - Championship
+    - Gold Star 2
+    Gold Star 2:
+    - Gold Star 1
+    - Pre Championship
+    - Gold Star 1
+    - Championship
+- type: Amateur-Amateur
+  status: Student-Student
+  sex:
+    - Male-Female
+    - Male-Male
+    - Female-Female
+  age:
+    Senior-Youth: [40-75,1-12]
+    Adult-Youth: [19-39,1-12]
+  proficiency:
+    Social:
+    - Social
+    - Pre Bronze
+    - Intermediate Bronze
+    - Full Bronze
+    - Open Bronze
+    - Bronze
+    - Pre Silver
+    - Intermediate Silver
+    - Full Silver
+    - Open Silver
+    - Silver
+- type: Amateur-Amateur
+  status: Teacher-Teacher
+  sex:
+    - Male-Female
+    - Male-Male
+    - Female-Female
+  age:
+    Y16-16: [16-16,16-16]
+    Y17-17: [17-17,16-17]
+    Y18-18: [18-18,16-18]
+    Y19-34: [19-34,16-34]
+    Y35-44: [30-44,35-44]
+    Y45-49: [40-49,45-49]
+    Y50-54: [50-54,50-54]
+    Y55-64: [50-64,55-64]
+    Y65-74: [50-74,65-74]
+    Y75-99: [70-99,75-99]
+  proficiency:
+    Pre Championship:
+      - Gold Star 1
+      - Pre Championship
+    Gold Star 1:
+      - Gold Star 1
+      - Pre Championship
+    Championship:
+      - Gold Star 1
+      - Pre Championship
+      - Championship
+      - Gold Star 2
+    Gold Star 2:
+      - Gold Star 1
+      - Pre Championship
+      - Gold Star 2
+      - Championship
+- type: Amateur-Amateur
+  status: Teacher-Student
+  sex:
+  - Male-Female
+  - Male-Male
+  - Female-Female
+  age:
+    Y01-04: [16-70,1-4]
+    Y05-05: [16-70,5-5]
+    Y06-06: [16-70,6-6]
+    Y07-07: [16-70,7-7]
+    Y08-08: [16-70,8-8]
+    Y09-09: [16-70,9-9]
+    Y10-10: [16-70,10-10]
+    Y11-11: [16-70,11-11]
+    Y12-12: [16-70,12-12]
+    Y13-13: [16-70,13-13]
+    Y14-14: [16-70,14-14]
+    Y15-15: [16-70,15-15]
+    Y16-16: [16-70,16-16]
+    Y17-17: [16-70,17-17]
+    Y18-18: [16-70,18-18]
+    Y19-34: [16-70,19-34]
+    Y35-44: [16-70,35-44]
+    Y45-49: [16-70,45-49]
+    Y50-54: [16-70,50-54]
+    Y55-64: [16-70,55-64]
+    Y65-74: [16-70,65-74]
+    Y75-99: [16-70,75-99]
+  proficiency:
+    Social: [Gold Star 1, Pre Championship,Gold Star 2, Championship]
+    Newcomer: [Gold Star 1, Pre Championship,Gold Star 2, Championship]
+    Pre Bronze: [Gold Star 1, Pre Championship,Gold Star 2, Championship]
+    Intermediate Bronze: [Gold Star 1, Pre Championship,Gold Star 2, Championship]
+    Full Bronze: [Gold Star 1, Pre Championship,Gold Star 2, Championship]
+    Open Bronze: [Gold Star 1, Pre Championship,Gold Star 2, Championship]
+    Bronze: [Gold Star 1, Pre Championship,Gold Star 2, Championship]
+    Pre Silver: [Gold Star 1, Pre Championship,Gold Star 2, Championship]
+    Intermediate Silver: [Gold Star 1, Pre Championship,Gold Star 2, Championship]
+    Full Silver: [Gold Star 1, Pre Championship,Gold Star 2, Championship]
+    Open Silver: [Gold Star 1, Pre Championship,Gold Star 2, Championship]
+    Silver: [Gold Star 1, Pre Championship,Gold Star 2, Championship]
+    Pre Gold: [Gold Star 1, Pre Championship,Gold Star 2, Championship]
+    Intermediate Gold: [Gold Star 1, Pre Championship,Gold Star 2, Championship]
+    Full Gold: [Gold Star 1, Pre Championship,Gold Star 2, Championship]
+    Open Gold: [Gold Star 1, Pre Championship,Gold Star 2, Championship]
+    Gold: [Gold Star 1, Pre Championship,Gold Star 2, Championship]
+- type: Professional-Amateur
+  status: Teacher-Student
+  sex:
+  - Male-Female
+  - Male-Male
+  - Female-Female
+  age:
+    Y01-04: [0-0,1-4]
+    Y05-05: [0-0,5-5]
+    Y06-06: [0-0,6-6]
+    Y07-07: [0-0,7-7]
+    Y08-08: [0-0,8-8]
+    Y09-09: [0-0,9-9]
+    Y10-10: [0-0,10-10]
+    Y11-11: [0-0,11-11]
+    Y12-12: [0-0,12-12]
+    Y13-13: [0-0,13-13]
+    Y14-14: [0-0,14-14]
+    Y15-15: [0-0,15-15]
+    Y16-16: [0-0,16-16]
+    Y17-17: [0-0,17-17]
+    Y18-18: [0-0,18-18]
+    Y19-34: [0-0,19-34]
+    Y35-44: [0-0,35-44]
+    Y45-49: [0-0,45-49]
+    Y50-54: [0-0,49-54]
+    Y55-64: [0-0,55-64]
+    Y65-74: [0-0,65-74]
+    Y75-99: [0-0,75-99]
+  proficiency:
+    Newcomer: [Rising Star,Professional]
+    Pre Bronze: [Rising Star,Professional]
+    Intermediate Bronze: [Rising Star,Professional]
+    Full Bronze: [Rising Star,Professional]
+    Open Bronze: [Rising Star,Professional]
+    Bronze: [Rising Star,Professional]
+    Pre Silver: [Rising Star,Professional]
+    Intermediate Silver: [Rising Star,Professional]
+    Full Silver: [Rising Star,Professional]
+    Open Silver: [Rising Star,Professional]
+    Silver: [Rising Star,Professional]
+    Pre Gold: [Rising Star,Professional]
+    Intermediate Gold: [Rising Star,Professional]
+    Full Gold: [Rising Star,Professional]
+    Open Gold: [Rising Star,Professional]
+    Gold: [Rising Star,Professional]
+    Gold Star 1: [Rising Star,Professional]
+    Gold Star 2: [Rising Star,Professional]
+- type: Professional-Professional
+  status: Teacher-Teacher
+  sex:
+  - Male-Female
+  age:
+    Y00-00: [0-0,0-0]
+  proficiency:
+    Rising Star: [Rising Star]
+    Professional: [Rising Star, Professional]

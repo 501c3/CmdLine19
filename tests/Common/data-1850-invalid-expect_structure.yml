@@ -1,0 +1,206 @@
+ISTD Medal Exams-2019:
+  - proficiency:
+      Pre Bronze:
+      - Newcomer
+      - Pre Bronze
+      Bronze:
+      - Pre Bronze
+      - Intermediate Bronze
+      - Full Bronze
+      - Open Bronze
+      - Bronze
+      Silver:
+      - Pre Silver
+      - Intermediate Silver
+      - Full Silver
+      - Open Silver
+      - Silver
+      Gold:
+      - Pre Gold
+      - Intermediate Gold
+      - Full Gold
+      - Open Gold
+      - Gold
+      Gold Star 1:
+      - Novice
+      - Gold Star 1
+      Gold Star 2:
+      - Pre Championship
+      - Championship
+      - Gold Star 2
+    age:
+      Under 6: [Y01-04,Y05-05,Y06-06]
+      Under 8: [Y07-07,Y08-08]
+      Under 12: [Y09-09,Y10-10,Y11-11]
+      Junior 12-16: [Y12-12,Y13-13,Y14-14,Y15-15]
+      Adult 16-50: [Y16-16,Y17-17,Y18-18,Y19-34,Y35-44,Y45-49]
+      Senior 50: [Y50-54,Y55-64,Y65-74,Y75-99]
+Georgia DanceSport Amateur-2019:
+  - proficiency:
+      Newcomer:
+      - Newcomer
+      Bronze:
+      - Newcomer
+      - Pre Bronze
+      - Intermediate Bronze
+      - Full Bronze
+      - Open Bronze
+      - Bronze
+      Silver:
+      - Pre Bronze
+      - Intermediate Bronze
+      - Full Bronze
+      - Open Bronze
+      - Bronze
+      - Pre Silver
+      - Intermediate Silver
+      - Full Silver
+      - Open Silver
+      - Silver
+    age:
+      Baby: [Y01-04]
+      Juvenile: [Y05-05,Y06-06]
+      Preteen 1: [Y07-07,Y08-08,Y09-09]
+      Preteen 2: [Y10-10,Y11-11]
+      Junior 1: [Y12-12,Y13-13]
+      Junior 2: [Y14-14,Y15-15]
+      Youth: [Y16-16,Y17-17,Y18-18]
+      Adult: [Y19-34,Y35-44]
+      Senior 1: [Y35-44,Y45-49,Y50-54]
+      Senior 2: [Y45-49,Y50-54,Y55-64]
+      Senior 3: [Y55-64,Y65-74]
+      Senior 4: [Y65-74,Y75-99]
+      Senior 5: [Y75-99]
+
+  - proficiency:
+      Gold:
+      - Pre Silver
+      - Intermediate Silver
+      - Full Silver
+      - Open Silver
+      - Pre Gold
+      - Intermediate Gold
+      - Full Gold
+      - Open Gold
+    age:
+      Junior 1: [Y12-12,Y13-13]
+      Junior 2: [Y14-14,Y15-15]
+      Youth: [Y16-16,Y17-17,Y18-18]
+      Adult: [Y19-34,Y35-44]
+      Senior 1: [Y35-44,Y45-49,Y50-54]
+      Senior 2: [Y45-49,Y50-54,Y55-64]
+      Senior 3: [Y55-64,Y65-74]
+      Senior 4: [Y65-74,Y75-99]
+      Senior 5: [Y75-99]
+  - proficiency:
+      Novice:
+      - Pre Gold
+      - Intermediate Gold
+      - Full Gold
+      - Open Gold
+      - Gold Star 1
+      - Novice
+      Pre Championship:
+      - Novice
+      - Gold Star 2
+      - Pre Championship
+      Championship:
+      - Pre Championship
+      - Gold Star 2
+      - Championship
+    age:
+      Adult: [Y19-34,Y35-44]
+      Senior 1: [Y35-44,Y45-49,Y50-54]
+      Senior 2: [Y45-49,Y50-54,Y55-64]
+      Senior 3: [Y55-64,Y65-74]
+      Senior 4: [Y65-74,Y75-99]
+      Senior 5: [Y75-99]
+Georgia DanceSport ProAm-2019:
+  - proficiency:
+      Pre Bronze:
+      - Pre Bronze
+      Intermediate Bronze:
+      - Pre Bronze
+      - Intermediate Bronze
+      Full Bronze:
+      - Pre Bronze
+      - Intermediate Bronze
+      - Full Bronze
+      Open Bronze:
+      - Intermediate Bronze
+      - Full Bronze
+      - Open Bronze
+      Pre Silver:
+      - Full Bronze
+      - Open Bronze
+      - Pre Silver
+      Intermediate Silver:
+      - Open Bronze
+      - Pre Silver
+      - Intermediate Silver
+      Full Silver:
+      - Pre Silver
+      - Intermediate Silver
+      - Full Silver
+      Open Silver:
+    age:
+      Baby: [Y01-04]
+      Juvenile: [Y05-05,Y06-06]
+      Preteen 1: [Y07-07,Y08-08,Y09-09]
+      Preteen 2: [Y10-10,Y11-11]
+      Junior 1: [Y12-12,Y13-13]
+      Junior 2: [Y14-14,Y15-15]
+      Youth: [Y16-16,Y17-17,Y18-18]
+      Adult: [Y19-34,Y35-44]
+      Senior 1: [Y35-44,Y45-49,Y50-54]
+      Senior 2: [Y45-54,Y55-64]
+      Senior 3: [Y55-64,Y65-74]
+      Senior 4: [Y65-74,Y75-99]
+      Senior 5: [Y75-99]
+  - proficiency:
+      Pre Gold:
+      - Full Silver
+      - Open Silver
+      - Pre Gold
+      Intermediate Gold:
+      - Open Silver
+      - Pre Gold
+      - Intermediate Gold
+      Full Gold:
+      - Pre Gold
+      - Intermediate Gold
+      - Full Gold
+      Open Gold:
+      - Intermediate Gold
+      - Full Gold
+      - Open Gold
+    age:
+      Junior 1: [Y12-12,Y13-13]
+      Junior 2: [Y14-14,Y15-15]
+      Youth: [Y16-16,Y17-17,Y18-18]
+      Adult: [Y19-34,Y35-44]
+      Senior 1: [Y35-44,Y45-49,Y50-54]
+      Senior 2: [Y45-54,Y55-64]
+      Senior 3: [Y55-64,Y65-74]
+      Senior 4: [Y65-74,Y75-99]
+      Senior 5: [Y75-99]
+  - proficiency:
+      Gold Star 1:
+      - Full Gold
+      - Open Gold
+      - Gold Star 1
+      Gold Star 2:
+      - Open Gold
+      - Gold Star 1
+      - Gold Star 2
+      Championship:
+      - Gold Star 1
+      - Gold Star 2
+      - Championship
+    age:
+      Adult: [Y19-34,Y35-44]
+      Senior 1: [Y35-44,Y45-49,Y50-54]
+      Senior 2: [Y45-54,Y55-64]
+      Senior 3: [Y55-64,Y65-74]
+      Senior 4: [Y65-74,Y75-99]
+      Senior 5: [Invalid Value]

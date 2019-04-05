@@ -1,0 +1,27 @@
+- type: Amateur
+  status: Student
+  sex:
+  - Male
+  - Female
+  age: 1-15
+  proficiency:
+  - Social
+  - Newcomer
+  - Pre Bronze
+  - Intermediate Bronze
+  - Full Bronze
+  - Open Bronze
+  - Bronze
+  - Pre Silver
+  - Intermediate Silver
+  - Full Silver
+  - Open Silver
+  - Silver
+  - Pre Gold
+  - Intermediate Gold
+  - Full Gold
+  - Open Gold
+  - Gold
+  designate:
+  - A
+  - B

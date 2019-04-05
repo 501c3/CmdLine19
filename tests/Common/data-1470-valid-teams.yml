@@ -1,0 +1,189 @@
+- type: Amateur-Amateur
+  status: Student-Student
+  sex:
+  - Male-Female
+  - Male-Male
+  - Female-Female
+  age:
+    Y01-04: [1-4,1-4]
+    Y05-05: [5-5,4-5]
+    Y06-06: [6-6,5-6]
+    Y07-07: [7-7,5-7]
+    Y08-08: [8-8,5-8]
+    Y09-09: [9-9,5-9]
+    Y10-10: [10-10,7-10]
+    Y11-11: [11-11,7-11]
+    Y12-12: [12-12,10-12]
+    Y13-13: [13-13,10-13]
+    Y14-14: [14-14,12-14]
+    Y15-15: [15-15,12-15]
+    Y16-16: [16-16,14-16]
+    Y17-17: [17-17,14-17]
+    Y18-18: [18-18,14-18]
+    Y19-34: [19-34,16-34]
+    Y35-44: [30-44,35-44]
+    Y45-49: [40-49,45-49]
+    Y50-54: [50-54,50-54]
+    Y55-64: [50-64,55-64]
+    Y65-74: [50-74,65-74]
+    Y75-99: [70-99,75-99]
+  proficiency:
+    Social:
+    - Social
+    Newcomer:
+    - Newcomer
+    Pre Bronze:
+    - Newcomer
+    - Pre Bronze
+    Intermediate Bronze:
+    - Newcomer
+    - Pre Bronze
+    - Intermediate Bronze
+    Full Bronze:
+    - Pre Bronze
+    - Intermediate Bronze
+    - Full Bronze
+    Open Bronze:
+    - Newcomer
+    - Pre Bronze
+    - Intermediate Bronze
+    - Full Bronze
+    - Open Bronze
+    Bronze:
+    - Newcomer
+    - Pre Bronze
+    - Intermediate Bronze
+    - Full Bronze
+    - Open Bronze
+    - Bronze
+    Pre Silver:
+    - Newcomer
+    - Pre Bronze
+    - Intermediate Bronze
+    - Full Bronze
+    - Open Bronze
+    - Bronze
+    - Pre Silver
+    Intermediate Silver:
+    - Newcomer
+    - Pre Bronze
+    - Intermediate Bronze
+    - Full Bronze
+    - Open Bronze
+    - Bronze
+    - Pre Silver
+    - Intermediate Silver
+    Full Silver:
+    - Newcomer
+    - Pre Bronze
+    - Intermediate Bronze
+    - Full Bronze
+    - Open Bronze
+    - Bronze
+    - Pre Silver
+    - Intermediate Silver
+    - Full Silver
+    Open Silver:
+    - Newcomer
+    - Pre Bronze
+    - Intermediate Bronze
+    - Full Bronze
+    - Open Bronze
+    - Bronze
+    - Pre Silver
+    - Intermediate Silver
+    - Full Silver
+    - Open Silver
+    Silver:
+    - Newcomer
+    - Pre Bronze
+    - Intermediate Bronze
+    - Full Bronze
+    - Open Bronze
+    - Bronze
+    - Pre Silver
+    - Intermediate Silver
+    - Full Silver
+    - Open Silver
+    - Silver
+    Pre Gold:
+    - Pre Silver
+    - Intermediate Silver
+    - Full Silver
+    - Open Silver
+    - Silver
+    - Pre Gold
+    Intermediate Gold:
+    - Pre Silver
+    - Intermediate Silver
+    - Full Silver
+    - Open Silver
+    - Silver
+    - Pre Gold
+    - Intermediate Gold
+    Full Gold:
+    - Pre Silver
+    - Intermediate Silver
+    - Full Silver
+    - Open Silver
+    - Silver
+    - Pre Gold
+    - Intermediate Gold
+    - Full Gold
+    Open Gold:
+    - Pre Silver
+    - Intermediate Silver
+    - Full Silver
+    - Open Silver
+    - Silver
+    - Pre Gold
+    - Intermediate Gold
+    - Full Gold
+    - Open Gold
+    Gold:
+    - Pre Silver
+    - Intermediate Silver
+    - Full Silver
+    - Open Silver
+    - Silver
+    - Pre Gold
+    - Intermediate Gold
+    - Full Gold
+    - Open Gold
+    - Gold
+    Novice:
+    - Pre Silver
+    - Intermediate Silver
+    - Full Silver
+    - Open Silver
+    - Silver
+    - Pre Gold
+    - Intermediate Gold
+    - Full Gold
+    - Open Gold
+    - Gold
+    - Novice
+    Pre Championship:
+    - Pre Gold
+    - Intermediate Gold
+    - Full Gold
+    - Open Gold
+    - Gold
+    - Novice
+    - Gold Star 1
+    - Pre Championship
+    Gold Star 1:
+    - Gold
+    - Novice
+    - Gold Star 1
+    - Pre Championship
+    Championship:
+    - Gold Star 1
+    - Pre Championship
+    - Championship
+    - Gold Star 2
+    Gold Star 2:
+    - Gold Star 1
+    - Pre Championship
+    - Gold Star 1
+    - Championship
