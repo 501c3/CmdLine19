@@ -253,7 +253,4 @@ class Channel
         $this->updatedAt = $updatedAt;
         return $this;
     }
-
-
-
 }

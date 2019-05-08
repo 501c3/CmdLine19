@@ -2,6 +2,7 @@
 
 namespace App\Entity\Sales;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -43,7 +44,7 @@ class Contact
     private $email;
 
     /**
-     * @var json|null
+     * @var array|null
      *
      * @ORM\Column(name="info", type="json", nullable=true)
      */
@@ -64,7 +65,7 @@ class Contact
     private $pin;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      *
      * @ORM\ManyToMany(targetEntity="App\Entity\Sales\Workarea", inversedBy="contact")
      * @ORM\JoinTable(name="contact_has_workarea",
@@ -85,5 +86,143 @@ class Contact
     {
         $this->workarea = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     * @return Contact
+     */
+    public function setId(int $id): Contact
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getCreatedAt(): ?\DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTime|null $createdAt
+     * @return Contact
+     */
+    public function setCreatedAt(?\DateTime $createdAt): Contact
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getElink(): ?string
+    {
+        return $this->elink;
+    }
+
+    /**
+     * @param string|null $elink
+     * @return Contact
+     */
+    public function setElink(?string $elink): Contact
+    {
+        $this->elink = $elink;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     * @return Contact
+     */
+    public function setEmail(string $email): Contact
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getInfo(): ?array
+    {
+        return $this->info;
+    }
+
+    /**
+     * @param array|null $info
+     * @return Contact
+     */
+    public function setInfo(?array $info): Contact
+    {
+        $this->info = $info;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string|null $name
+     * @return Contact
+     */
+    public function setName(?string $name): Contact
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+
+    /**
+     * @param int|null $pin
+     * @return Contact
+     */
+    public function setPin(?int $pin): Contact
+    {
+        $this->pin = $pin;
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getWorkarea(): Collection
+    {
+        return $this->workarea;
+    }
+
+    /**
+     * @param Collection $workarea
+     * @return Contact
+     */
+    public function setWorkarea(Collection $workarea): Contact
+    {
+        $this->workarea = $workarea;
+        return $this;
+    }
+
 
 }

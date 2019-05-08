@@ -2,13 +2,14 @@
 
 namespace App\Entity\Setup;
 
-use /** @noinspection PhpUnusedAliasInspection */
-    Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Person
  *
- * @ORM\Table(name="person", indexes={@ORM\Index(name="fk_person_prf_person1_idx", columns={"prf_person_id"}), @ORM\Index(name="fk_person_age_person1_idx", columns={"age_person_id"})})
+ * @ORM\Table(name="person", indexes={@ORM\Index(name="idx_years", columns={"years"})})
  * @ORM\Entity(repositoryClass="App\Repository\Setup\PersonRepository")
  */
 class Person
@@ -23,6 +24,13 @@ class Person
     private $id;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="years", type="smallint", nullable=false)
+     */
+    private $years;
+
+    /**
      * @var array
      *
      * @ORM\Column(name="`describe`", type="json", nullable=false)
@@ -30,27 +38,22 @@ class Person
     private $describe;
 
     /**
-     * @var \App\Entity\Setup\AgePerson
+     * @var Collection
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Setup\AgePerson")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="age_person_id", referencedColumnName="id")
-     * })
+     * @ORM\ManyToMany(targetEntity="App\Entity\Setup\Value", inversedBy="person")
+     * @ORM\JoinTable(name="person_has_value",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="person_id", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="value_id", referencedColumnName="id")
+     *   }
+     * )
      */
-    private $agePerson;
+    private $value;
 
     /**
-     * @var \App\Entity\Setup\PrfPerson
-     *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Setup\PrfPerson")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="prf_person_id", referencedColumnName="id")
-     * })
-     */
-    private $prfPerson;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      *
      * @ORM\ManyToMany(targetEntity="App\Entity\Setup\Team", mappedBy="person")
      */
@@ -61,7 +64,8 @@ class Person
      */
     public function __construct()
     {
-        $this->team = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->value = new ArrayCollection();
+        $this->team = new ArrayCollection();
     }
 
     /**
@@ -79,6 +83,24 @@ class Person
     public function setId(int $id): Person
     {
         $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getYears(): int
+    {
+        return $this->years;
+    }
+
+    /**
+     * @param int $years
+     * @return Person
+     */
+    public function setYears(int $years): Person
+    {
+        $this->years = $years;
         return $this;
     }
 
@@ -101,49 +123,40 @@ class Person
     }
 
     /**
-     * @return AgePerson
+     * @return Collection
      */
-    public function getAgePerson(): AgePerson
+    public function getValue(): Collection
     {
-        return $this->agePerson;
+        return $this->value;
     }
 
     /**
-     * @param AgePerson $agePerson
+     * @param Collection $value
      * @return Person
      */
-    public function setAgePerson(AgePerson $agePerson): Person
+    public function setValue(Collection $value): Person
     {
-        $this->agePerson = $agePerson;
+        $this->value = $value;
         return $this;
     }
 
     /**
-     * @return PrfPerson
+     * @return Collection
      */
-    public function getPrfPerson(): PrfPerson
-    {
-        return $this->prfPerson;
-    }
-
-    /**
-     * @param PrfPerson $prfPerson
-     * @return Person
-     */
-    public function setPrfPerson(PrfPerson $prfPerson): Person
-    {
-        $this->prfPerson = $prfPerson;
-        return $this;
-    }
-
-    /**
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getTeam(): \Doctrine\Common\Collections\Collection
+    public function getTeam(): Collection
     {
         return $this->team;
     }
 
+    /**
+     * @param Collection $team
+     * @return Person
+     */
+    public function setTeam(Collection $team): Person
+    {
+        $this->team = $team;
+        return $this;
+    }
 
 
 }

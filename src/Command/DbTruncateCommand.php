@@ -24,6 +24,14 @@ where
    table1...tableN - tables to NOT truncate.
 HELPTEXT;
 
+    const  STMT = <<<'SQLTEXT'
+# noinspection SqlNoDataSourceInspection    
+SELECT TABLE_NAME as ID
+FROM INFORMATION_SCHEMA.TABLES
+WHERE table_schema =  
+SQLTEXT;
+
+
     private $kernel;
 
     public function __construct(KernelInterface $kernel)
@@ -71,10 +79,16 @@ HELPTEXT;
         $exclude = $input->hasOption('exclude')? $input->getOption('exclude'):false;
         try{
             $em = $this->getEntityManager($dbname);
-            $purger = new ORMPurger($em,explode(',',$exclude));
-            $connection=$purger->getObjectManager()->getConnection();
+            $connection=$em->getConnection();
+            $stmt = $connection->executeQuery(self::STMT."'$dbname'");
+            $allTables = $stmt->fetchAll();
             $connection->query('SET FOREIGN_KEY_CHECKS=0');
-            $purger->purge();
+            foreach($allTables as $table) {
+                if(is_array($exclude) && in_array($table['ID'],$exclude)){
+                    continue;
+                }
+                $connection->exec( 'TRUNCATE TABLE '.$table['ID']);
+            }
             $connection->query('SET FOREIGN_KEY_CHECKS=1');
         } catch(\Exception $e) {
             $message = $e->getMessage();

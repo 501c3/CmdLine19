@@ -15,6 +15,7 @@ namespace App\Tests\Common;
 
 use App\Common\YamlDbSetupPerson;
 use App\Entity\Setup\AgePerson;
+use App\Entity\Setup\Person;
 use App\Entity\Setup\PrfPerson;
 use App\Kernel;
 use App\Repository\Setup\AgePersonRepository;
@@ -34,13 +35,13 @@ class Code1200SetupPersonTest extends KernelTestCase
 
     public static function setUpBeforeClass()
     {
-        (new Dotenv())->load(__DIR__.'/../../.env');
+        (new Dotenv())->load(__DIR__ . '/../../.env');
     }
 
     /**
      * @return mixed
      */
-    private function getEntityManager() : EntityManagerInterface
+    private function getEntityManager(): EntityManagerInterface
     {
         return self::$kernel->getContainer()->get('doctrine.orm.setup_entity_manager');
     }
@@ -53,7 +54,7 @@ class Code1200SetupPersonTest extends KernelTestCase
     {
         /** @var EntityManagerInterface $em */
         $em = $this->getEntityManager();
-        $purger = new ORMPurger($em,$excluded);
+        $purger = new ORMPurger($em, $excluded);
         $purger->setPurgeMode(ORMPurger::PURGE_MODE_TRUNCATE);
         $conn = $purger->getObjectManager()->getConnection();
         $conn->query('SET FOREIGN_KEY_CHECKS=0');
@@ -82,7 +83,7 @@ class Code1200SetupPersonTest extends KernelTestCase
         $setup->parseModels(__DIR__ . '/../../tests/Common/setup-01-models.yml');
         $setup->parseDomains(__DIR__ . '/../../tests/Common/setup-02-domains.yml');
         $setup->parseValues(__DIR__ . '/../../tests/Common/setup-03-values.yml');
-        $this->setup=$setup;
+        $this->setup = $setup;
     }
 
 
@@ -108,7 +109,7 @@ class Code1200SetupPersonTest extends KernelTestCase
      */
     public function test1210InvalidKey()
     {
-        $this->setup->parsePersons(__DIR__.'/../../tests/Common/data-1210-invalid-key.yml');
+        $this->setup->parsePersons(__DIR__ . '/../../tests/Common/data-1210-invalid-key.yml');
     }
 
     /**
@@ -118,10 +119,10 @@ class Code1200SetupPersonTest extends KernelTestCase
      * @throws \App\Common\AppParseException
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
- */
+     */
     public function test1220MissingKey()
     {
-        $this->setup->parsePersons(__DIR__.'/../../tests/Common/data-1220-missing-key.yml');
+        $this->setup->parsePersons(__DIR__ . '/../../tests/Common/data-1220-missing-key.yml');
     }
 
     /**
@@ -134,7 +135,7 @@ class Code1200SetupPersonTest extends KernelTestCase
      */
     public function test1230InvalidValue()
     {
-        $this->setup->parsePersons(__DIR__.'/../../tests/Common/data-1230-invalid-value.yml');
+        $this->setup->parsePersons(__DIR__ . '/../../tests/Common/data-1230-invalid-value.yml');
     }
 
     /**
@@ -147,7 +148,7 @@ class Code1200SetupPersonTest extends KernelTestCase
      */
     public function test1240InvalidValue()
     {
-        $this->setup->parsePersons(__DIR__.'/../../tests/Common/data-1240-invalid-value.yml');
+        $this->setup->parsePersons(__DIR__ . '/../../tests/Common/data-1240-invalid-value.yml');
     }
 
 
@@ -161,7 +162,7 @@ class Code1200SetupPersonTest extends KernelTestCase
      */
     public function test1250InvalidNumeric()
     {
-        $this->setup->parsePersons(__DIR__.'/../../tests/Common/data-1250-invalid-numeric.yml');
+        $this->setup->parsePersons(__DIR__ . '/../../tests/Common/data-1250-invalid-numeric.yml');
     }
 
     /**
@@ -174,7 +175,7 @@ class Code1200SetupPersonTest extends KernelTestCase
      */
     public function test1260InvalidNumeric()
     {
-        $this->setup->parsePersons(__DIR__.'/../../tests/Common/data-1260-invalid-numeric.yml');
+        $this->setup->parsePersons(__DIR__ . '/../../tests/Common/data-1260-invalid-numeric.yml');
     }
 
     /**
@@ -187,7 +188,7 @@ class Code1200SetupPersonTest extends KernelTestCase
      */
     public function test1270InvalidNumeric()
     {
-        $this->setup->parsePersons(__DIR__.'/../../tests/Common/data-1270-invalid-numeric.yml');
+        $this->setup->parsePersons(__DIR__ . '/../../tests/Common/data-1270-invalid-numeric.yml');
     }
 
     /**
@@ -197,7 +198,7 @@ class Code1200SetupPersonTest extends KernelTestCase
      */
     public function test1280PersonBuildInitial()
     {
-        $expected = $this->setup->parsePersons(__DIR__.'/../../tests/Common/setup-05-persons.yml');
+        $expected = $this->setup->parsePersons(__DIR__ . '/../../tests/Common/setup-05-persons.yml');
         $this->assertTrue(!is_null($expected));
     }
 
@@ -209,40 +210,46 @@ class Code1200SetupPersonTest extends KernelTestCase
      */
     public function test1300PersonBuild()
     {
-        $expected = $this->setup->parsePersons(__DIR__.'/../../tests/Common/setup-05-persons.yml');
+        $expected = $this->setup->parsePersons(__DIR__ . '/../../tests/Common/setup-05-persons.yml');
         /** @var AgePersonRepository $ageRepository */
-        $ageRepository = $this->getEntityManager()->getRepository(AgePerson::class);
+
         /** @var PrfPersonRepository $prfRepository */
-        $prfRepository = $this->getEntityManager()->getRepository(PrfPerson::class);
-        $actualAge = $ageRepository->fetchQuickSearch();
-        $actualPrf = $prfRepository->fetchQuickSearch();
-        foreach($expected as $type=>$statusList) {
-            $this->assertArrayHasKey($type, $actualAge);
-            $this->assertArrayHasKey($type, $actualPrf);
-            foreach($statusList as $status=>$agePrfRecords) {
-                    /**
-                     * @var string $proficiency
-                     * @var PrfPerson $expectObject
-                     */
-                foreach($agePrfRecords['prf'] as $sex=>$proficiencyList) {
-                    $this->assertArrayHasKey($sex,$actualPrf[$type][$status]);
-                    foreach($proficiencyList as $proficiency=>$designateList) {
-                        $this->assertArrayHasKey($status,$actualAge[$type]);
-                        $this->assertArrayHasKey($status,$actualPrf[$type]);
-                        /** @var AgePerson $actualObject */
-                        $this->assertArrayHasKey($proficiency, $actualPrf[$type][$status][$sex]);
-                        foreach($designateList as $designate=>$expectObject){
-                            $actualObject = $actualPrf[$type][$status][$sex][$proficiency][$designate];
-                            $this->assertEquals($expectObject->getDescribe(),$actualObject->getDescribe());
+        $repository = $this->getEntityManager()->getRepository(Person::class);
+        $actual = $repository->fetchQuickSearch();
+        foreach ($expected as $expectedType => $expectedStatusList) {
+            $this->assertArrayHasKey($expectedType, $actual);
+            foreach ($expectedStatusList as $expectedStatus => $expectedSexList) {
+                $this->assertArrayHasKey($expectedStatus, $actual[$expectedType]);
+                foreach ($expectedSexList as $expectedSex => $expectedDesignateList) {
+                    $this->assertArrayHasKey($expectedSex, $actual[$expectedType][$expectedStatus]);
+                    foreach ($expectedDesignateList as $expectedDesignate => $expectedProficiencyList) {
+                        $this->assertArrayHasKey($expectedDesignate,
+                            $actual[$expectedType][$expectedStatus][$expectedSex]);
+                        foreach ($expectedProficiencyList as $expectedProficiency => $expectedYearsList) {
+                            $this->assertArrayHasKey($expectedProficiency,
+                                $actual[$expectedType][$expectedStatus][$expectedSex][$expectedDesignate]);
+                            /**
+                             * @var integer $expectedYear
+                             * @var  Person $expectedPersonRecord
+                             */
+                            foreach ($expectedYearsList as $expectedYear => $expectedPersonRecord) {
+                                $this->assertArrayHasKey($expectedYear,
+                                    $actual[$expectedType][$expectedStatus][$expectedSex]
+                                           [$expectedDesignate][$expectedProficiency]);
+                                $expectedDescribe = [
+                                    'type' => $expectedType,
+                                    'status' => $expectedStatus,
+                                    'sex' => $expectedSex,
+                                    'designate' => $expectedDesignate,
+                                    'years' => $expectedYear,
+                                    'proficiency' => $expectedProficiency];
+                                /** @var Person $actualPerson */
+                                $actualPerson = $actual[$expectedType][$expectedStatus][$expectedSex]
+                                                       [$expectedDesignate][$expectedProficiency][$expectedYear];
+                                $actualDescribe = $actualPerson->getDescribe();
+                                $this->assertEquals($expectedDescribe, $actualDescribe);
+                            }
                         }
-                    }
-                }
-                foreach($agePrfRecords['age'] as $years=>$designateList) {
-                    $this->assertArrayHasKey($years,$actualAge[$type][$status]);
-                    foreach($designateList as $designate=>$expectObject) {
-                        $this->assertArrayHasKey($designate,$actualAge[$type][$status][$years]);
-                        $actualObject = $actualAge[$type][$status][$years][$designate];
-                        $this->assertEquals($expectObject->getDescribe(),$actualObject->getDescribe());
                     }
                 }
             }

@@ -77,4 +77,132 @@ class Workarea
         $this->contact = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     * @return Workarea
+     */
+    public function setId(int $id): Workarea
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getCreatedAt(): ?\DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTime|null $createdAt
+     * @return Workarea
+     */
+    public function setCreatedAt(?\DateTime $createdAt): Workarea
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getProcessedAt(): ?\DateTime
+    {
+        return $this->processedAt;
+    }
+
+    /**
+     * @param \DateTime|null $processedAt
+     * @return Workarea
+     */
+    public function setProcessedAt(?\DateTime $processedAt): Workarea
+    {
+        $this->processedAt = $processedAt;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param string|null $token
+     * @return Workarea
+     */
+    public function setToken(?string $token): Workarea
+    {
+        $this->token = $token;
+        return $this;
+    }
+
+    /**
+     * @return Channel
+     */
+    public function getChannel(): Channel
+    {
+        return $this->channel;
+    }
+
+    /**
+     * @param Channel $channel
+     * @return Workarea
+     */
+    public function setChannel(Channel $channel): Workarea
+    {
+        $this->channel = $channel;
+        return $this;
+    }
+
+    /**
+     * @return Tag
+     */
+    public function getTag(): Tag
+    {
+        return $this->tag;
+    }
+
+    /**
+     * @param Tag $tag
+     * @return Workarea
+     */
+    public function setTag(Tag $tag): Workarea
+    {
+        $this->tag = $tag;
+        return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getContact(): \Doctrine\Common\Collections\Collection
+    {
+        return $this->contact;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $contact
+     * @return Workarea
+     */
+    public function setContact(\Doctrine\Common\Collections\Collection $contact): Workarea
+    {
+        $this->contact = $contact;
+        return $this;
+    }
+
+
+
 }

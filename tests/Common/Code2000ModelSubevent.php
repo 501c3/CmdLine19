@@ -50,18 +50,6 @@ class Code2000ModelSubevent extends KernelTestCase
    public static function setUpBeforeClass()
    {
        (new Dotenv())->load(__DIR__.'/../../.env');
-
-       self::$kernel = self::bootKernel();
-       /** @var EntityManagerInterface $emModel */
-       self::$emModel=self::$kernel->getContainer()->get('doctrine.orm.model_entity_manager');
-       /** @var EntityManagerInterface $emModel */
-       self::$emSetup=self::$kernel->getContainer()->get('doctrine.orm.setup_entity_manager');
-       self::purgeDatabase(self::$emModel);
-       self::purgeDatabase(self::$emSetup);
-       self::loadSetupDump(self::$emSetup,'/home/mgarber/GeorgiaDancesport/TestData19/Data19-1900');
-       self::$yamlDbModelSubevent = new YamlDbModelSubevent(self::$emModel);
-       $conn=self::$emModel->getConnection();
-       $conn->exec('CALL pull_from_setup()');
    }
 
     /**
@@ -125,12 +113,15 @@ class Code2000ModelSubevent extends KernelTestCase
    public function setup()
    {
        self::$kernel = self::bootKernel();
+       self::$emSetup=self::$kernel->getContainer()->get('doctrine.orm.setup_entity_manager');
+       self::purgeDatabase(self::$emSetup);
+       self::loadSetupDump(self::$emSetup,__DIR__.'/../../../TestData19/Data-1900-setup');
        /** @var EntityManagerInterface $em */
-       $em = self::$kernel->getContainer()->get('doctrine.orm.model_entity_manager');
-       $conn = $em->getConnection();
-       $conn->query('TRUNCATE subevent');
-       /** @noinspection SqlNoDataSourceInspection */
-       $conn->query(self::ALTER_TABLE);
+       self::$emModel = self::$kernel->getContainer()->get('doctrine.orm.model_entity_manager');
+       self::purgeDatabase(self::$emModel);
+       self::$yamlDbModelSubevent = new YamlDbModelSubevent(self::$emModel);
+       $conn=self::$emModel->getConnection();
+       $conn->exec('CALL pull_from_setup()');
    }
 
 

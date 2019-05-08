@@ -4,10 +4,11 @@ namespace App\DataFixtures;
 
 use App\Entity\Access\Person;
 use App\Entity\Access\User;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class AccessUserFixture extends AppFixtures
+class AccessUserFixture extends AppFixtures implements FixtureGroupInterface
 {
     /**
      * @var UserPasswordEncoderInterface
@@ -59,7 +60,7 @@ class AccessUserFixture extends AppFixtures
            return $person;
         });
 
-        $this->createMany(3,'admin_users', function($i) use ($manager) {
+        $this->createMany(3,'admin_users', function($i) {
             $user = new User();
             $user->setUsername($this->faker->Username);
             $user->setEnabled(true);
@@ -71,5 +72,16 @@ class AccessUserFixture extends AppFixtures
             return $user;
         });
         $manager->flush();
+    }
+
+    /**
+     * This method must return an array of groups
+     * on which the implementing class belongs to
+     *
+     * @return string[]
+     */
+    public static function getGroups(): array
+    {
+        return ['access'];
     }
 }

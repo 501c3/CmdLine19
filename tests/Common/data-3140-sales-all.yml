@@ -14,28 +14,22 @@ monitor:
 inventory:
     2019-09-01:
         participant:
-            Per Dance Child: 10.00
-            Per Dance Adult: 15.00
-            Maximum Child: 80.00
-            Maximum Adult: 110.00
+            comp-dance-adult: 18
+            comp-dance-child: 12
+            exam-dance: 30
         extra:
-            Spectator Adult: 10.00
-            Spectator Child: 7.00
-            Printed Program: 7.00
-        penalty:
-            Late Competitor: 30.00
+            spectator-adult: 10
+            spectator-child: 7
+            program: 7
     2019-06-01:
         participant:
-            Per Dance Child: 8.00
-            Per Dance Adult: 8.00
-            Maximum Child: 60.00
-            Maximum Adult: 90.00
+            comp-dance-adult: 12
+            comp-dance-child:  7
+            exam-dance: 21
         extra:
-            Spectator Adult: 10.00
-            Spectator Child: 7.00
-            Printed Program: 7.00
-        discount:
-            Early Bird: 0.30
+            spectator-adult: 10
+            spectator-child: 7
+            printed-program: 7.00
 processor:
     PayPal:
         test:

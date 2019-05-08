@@ -25,6 +25,24 @@ class TeamClassRepository extends ServiceEntityRepository
        parent::__construct($registry, TeamClass::class);
    }
 
+    /**
+     * @param array $describe
+     * @return TeamClass
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+   public function create(array $describe)
+   {
+       $class = new TeamClass();
+       $class->setDescribe($describe);
+       $this->_em->persist($class);
+       $this->_em->flush();
+       return $class;
+   }
+
+    /**
+     * @return array
+     */
     public function fetchQuickSearch()
     {
         $classes = $this->findAll();
@@ -46,10 +64,10 @@ class TeamClassRepository extends ServiceEntityRepository
             if(!isset($arr[$type][$status][$sex])) {
                 $arr[$type][$status][$sex] = [];
             }
-            if(!isset($arr[$type][$status][$sex][$age])){
-                $arr[$type][$status][$sex][$age]=[];
+            if(!isset($arr[$type][$status][$sex][$proficiency])){
+                $arr[$type][$status][$sex][$proficiency]=[];
             }
-            $arr[$type][$status][$sex][$age][$proficiency] = $class;
+            $arr[$type][$status][$sex][$proficiency][$age] = $class;
         }
         return $arr;
    }

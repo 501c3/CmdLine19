@@ -14,8 +14,11 @@ namespace App\Common;
 
 
 use App\Entity\Setup\AgePerson;
+use App\Entity\Setup\Person;
 use App\Entity\Setup\PrfPerson;
+use App\Entity\Setup\Value;
 use App\Repository\Setup\AgePersonRepository;
+use App\Repository\Setup\PersonRepository;
 use App\Repository\Setup\PrfPersonRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
@@ -121,102 +124,48 @@ class YamlDbSetupPerson extends YamlDbSetupBase
     {
         $type = $cache['type'];
         $status = $cache['status'];
+        $valueRepository = $this->entityManager->getRepository(Value::class);
+        $valueQuickSearch = $valueRepository->fetchQuickSearch();
         if(!isset($this->person[$type])) {
             $this->person[$type]=[];
         }
         if(!isset($this->person[$type][$status])) {
             $this->person[$type][$status] = [];
         }
-        if(!isset($this->person[$type][$status])){
-            $this->person[$type][$status] = ['age'=>[],'prf'=>[]];
-        }
-        $prfPersons = $this->prfPersonValuesBuild($type,$status,$cache['sex'],
-                                            $cache['proficiency'],$cache['designate']);
-        $this->agePersonValuesBuild($type,$status,$cache['age'],$cache['designate'],$prfPersons);
-    }
-
-    /**
-     * @param string $type
-     * @param string $status
-     * @param string $ageRange
-     * @param array $designates
-     * @param array $prfPersons
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    private function agePersonValuesBuild(string $type,
-                                          string $status,
-                                          string $ageRange,
-                                          array $designates,
-                                          array $prfPersons)
-    {
-          /** @var AgePersonRepository $repository */
-        $repository = $this->entityManager->getRepository(AgePerson::class);
-        list($s1,$s2) = explode('-',$ageRange);
-        $lb = intval($s1);
-        $ub = intval($s2);
-        $describe = ['type'=>$type,'status'=>$status];
-        $values = [$this->value['type'][$type],$this->value['status'][$status]];
-        for($i = $lb; $i<=$ub; $i++) {
-            $describe1 = $describe;
-            $describe1['years']=$i;
-            if(!isset($this->person[$type][$status]['age'][$i])){
-                $this->person[$type][$status]['age'][$i]=[];
-                foreach($designates as $designate) {
-                    $describe2 = $describe1;
-                    $describe2['designate']=$designate;
-                    if(!isset($this->person[$type][$status]['age'][$i][$designate])) {
-                        $agePerson = $repository->create($describe2,$values,$prfPersons);
-                        $this->person[$type][$status]['age'][$i][$designate]=$agePerson;
+        list($lowerAge,$upperAge) = explode('-',$cache['age']);
+        $lb = (int) $lowerAge; $ub=(int) $upperAge;
+        /** @var PersonRepository $personRepository */
+        $personRepository = $this->entityManager->getRepository(Person::class);
+        foreach($cache['sex'] as $sex){
+            if(!isset($this->person[$type][$status][$sex])) {
+                $this->person[$type][$status][$sex]=[];
+            }
+            foreach($cache['designate'] as $designate) {
+                if(!isset($this->person[$type][$status][$sex][$designate])) {
+                    $this->person[$type][$status][$sex][$designate]=[];
+                }
+                foreach($cache['proficiency'] as $proficiency) {
+                    if(!isset($this->person[$type][$status][$sex][$designate][$proficiency])) {
+                        $this->person[$type][$status][$sex][$designate][$proficiency]=[];
+                    }
+                    for($years = $lb;$years<=$ub;$years++) {
+                        if(!isset($this->person[$type][$status][$sex][$designate][$proficiency][$years])){
+                            $values = [];
+                            $describe = ['type'=>$type,
+                                         'status'=>$status,
+                                         'sex'=>$sex,
+                                         'designate'=>$designate,
+                                         'proficiency'=>$proficiency,
+                                         'years'=>$years];
+                            foreach(['type','status','sex','designate','proficiency'] as $domain) {
+                                $values[]=$valueQuickSearch[$domain][$describe[$domain]];
+                            }
+                            $this->person[$type][$status][$sex][$designate][$proficiency][$years]=
+                                $personRepository->create($describe,$years,$values);
+                        }
                     }
                 }
             }
         }
-    }
-
-    /**
-     * @param $type
-     * @param $status
-     * @param $sexes
-     * @param $proficiencies
-     * @param $designates
-     * @return array
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    private function prfPersonValuesBuild($type,$status,$sexes,$proficiencies,$designates)
-    {
-        $arr = [];
-        /** @var PrfPersonRepository $repository */
-        $repository = $this->entityManager->getRepository(PrfPerson::class);
-        $describe = ['type'=>$type,'status'=>$status];
-        foreach($sexes as $sex){
-            $describe1 = $describe;
-            $describe1['sex']=$sex;
-            if(!isset($this->person[$type][$status]['prf'][$sex])){
-                $this->person[$type][$status]['prf'][$sex]=[];
-            }
-            foreach($proficiencies as $proficiency) {
-                $describe2 = $describe1;
-                $describe2['proficiency']=$proficiency;
-                if(!isset($this->person[$type][$status]['prf'][$sex][$proficiency])) {
-                    $this->person[$type][$status]['prf'][$sex][$proficiency]=[];
-                }
-                foreach($designates as $designate) {
-                    $describe3 = $describe2;
-                    $describe3['designate']=$designate;
-                    $collection = [];
-                    foreach($describe3 as $key=>$value) {
-                        $collection[]=$this->value[$key][$value];
-                    }
-                    if(!isset($this->person[$type][$status]['prf'][$sex][$proficiency][$designate])){
-                        $prfPerson = $repository->create($describe3,$collection);
-                        $this->person[$type][$status]['prf'][$sex][$proficiency][$designate]=$prfPerson;
-                        $arr[]=$prfPerson;
-                    }
-                }
-            }
-        }
-        return $arr;
     }
 }

@@ -43,6 +43,9 @@ class Code3000Sales extends KernelTestCase
         (new Dotenv()) -> load(__DIR__.'/../../.env');
     }
 
+    /**
+     * @throws \Doctrine\DBAL\DBALException
+     */
     protected function setUp()
     {
         self::$kernel = self::bootKernel();
@@ -193,6 +196,9 @@ class Code3000Sales extends KernelTestCase
     }
 
 
+    /**
+     * @throws AppParseException
+     */
     public function test3140SalesAll()
     {
         $repository = [];

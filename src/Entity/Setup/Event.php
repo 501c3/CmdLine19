@@ -4,8 +4,7 @@ namespace App\Entity\Setup;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use /** @noinspection PhpUnusedAliasInspection */
-    Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Event
@@ -88,6 +87,15 @@ class Event
         return $this->id;
     }
 
+    /**
+     * @param int $id
+     * @return Event
+     */
+    public function setId(int $id): Event
+    {
+        $this->id = $id;
+        return $this;
+    }
 
     /**
      * @return array
@@ -133,6 +141,15 @@ class Event
         return $this->teamClass;
     }
 
+    /**
+     * @param Collection $teamClass
+     * @return Event
+     */
+    public function setTeamClass(Collection $teamClass): Event
+    {
+        $this->teamClass = $teamClass;
+        return $this;
+    }
 
     /**
      * @return Collection
@@ -141,5 +158,16 @@ class Event
     {
         return $this->value;
     }
+
+    /**
+     * @param Collection $value
+     * @return Event
+     */
+    public function setValue(Collection $value): Event
+    {
+        $this->value = $value;
+        return $this;
+    }
+
 
 }

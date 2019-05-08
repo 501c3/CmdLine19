@@ -4,8 +4,7 @@ namespace App\Entity\Setup;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use /** @noinspection PhpUnusedAliasInspection */
-    Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Value
@@ -51,20 +50,6 @@ class Value
     /**
      * @var Collection
      *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Setup\AgePerson", mappedBy="value")
-     */
-    private $agePerson;
-
-    /**
-     * @var Collection
-     *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Setup\AgeTeamClass", mappedBy="value")
-     */
-    private $ageTeamClass;
-
-    /**
-     * @var Collection
-     *
      * @ORM\ManyToMany(targetEntity="App\Entity\Setup\Event", mappedBy="value")
      */
     private $event;
@@ -79,28 +64,18 @@ class Value
     /**
      * @var Collection
      *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Setup\PrfPerson", mappedBy="value")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Setup\Person", mappedBy="value")
      */
-    private $prfPerson;
-
-    /**
-     * @var Collection
-     *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Setup\PrfTeamClass", mappedBy="value")
-     */
-    private $prfTeamClass;
+    private $person;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->agePerson = new ArrayCollection();
-        $this->ageTeamClass = new ArrayCollection();
         $this->event = new ArrayCollection();
         $this->model = new ArrayCollection();
-        $this->prfPerson = new ArrayCollection();
-        $this->prfTeamClass = new ArrayCollection();
+        $this->person = new ArrayCollection();
     }
 
     /**
@@ -169,28 +144,20 @@ class Value
     /**
      * @return Collection
      */
-    public function getAgePerson(): Collection
-    {
-        return $this->agePerson;
-    }
-
-
-    /**
-     * @return Collection
-     */
-    public function getAgeTeamClass(): Collection
-    {
-        return $this->ageTeamClass;
-    }
-
-    /**
-     * @return Collection
-     */
     public function getEvent(): Collection
     {
         return $this->event;
     }
 
+    /**
+     * @param Collection $event
+     * @return Value
+     */
+    public function setEvent(Collection $event): Value
+    {
+        $this->event = $event;
+        return $this;
+    }
 
     /**
      * @return Collection
@@ -200,22 +167,32 @@ class Value
         return $this->model;
     }
 
-
     /**
-     * @return Collection
+     * @param Collection $model
+     * @return Value
      */
-    public function getPrfPerson(): Collection
+    public function setModel(Collection $model): Value
     {
-        return $this->prfPerson;
+        $this->model = $model;
+        return $this;
     }
 
-
     /**
      * @return Collection
      */
-    public function getPrfTeamClass(): Collection
+    public function getPerson(): Collection
     {
-        return $this->prfTeamClass;
+        return $this->person;
+    }
+
+    /**
+     * @param Collection $person
+     * @return Value
+     */
+    public function setPerson(Collection $person): Value
+    {
+        $this->person = $person;
+        return $this;
     }
 
 

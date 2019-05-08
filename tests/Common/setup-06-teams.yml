@@ -140,91 +140,128 @@
     - Full Silver
     - Open Silver
     - Silver
+- type: Amateur-Amateur
+  status: Student-Student
+  sex:
+    - Male-Female
+    - Male-Male
+    - Female-Female
+  age:
+    Y12-12: [12-12,10-12]
+    Y13-13: [13-13,10-13]
+    Y14-14: [14-14,12-14]
+    Y15-15: [15-15,12-15]
+    Y16-16: [16-16,14-16]
+    Y17-17: [17-17,14-17]
+    Y18-18: [18-18,14-18]
+    Y19-34: [19-34,16-34]
+    Y35-44: [30-44,35-44]
+    Y45-49: [40-49,45-49]
+    Y50-54: [50-54,50-54]
+    Y55-64: [50-64,55-64]
+    Y65-74: [50-74,65-74]
+    Y75-99: [70-99,75-99]
+  proficiency:
     Pre Gold:
-    - Pre Silver
-    - Intermediate Silver
-    - Full Silver
-    - Open Silver
-    - Silver
-    - Pre Gold
+      - Pre Silver
+      - Intermediate Silver
+      - Full Silver
+      - Open Silver
+      - Silver
+      - Pre Gold
     Intermediate Gold:
-    - Pre Silver
-    - Intermediate Silver
-    - Full Silver
-    - Open Silver
-    - Silver
-    - Pre Gold
-    - Intermediate Gold
+      - Pre Silver
+      - Intermediate Silver
+      - Full Silver
+      - Open Silver
+      - Silver
+      - Pre Gold
+      - Intermediate Gold
     Full Gold:
-    - Pre Silver
-    - Intermediate Silver
-    - Full Silver
-    - Open Silver
-    - Silver
-    - Pre Gold
-    - Intermediate Gold
-    - Full Gold
+      - Pre Silver
+      - Intermediate Silver
+      - Full Silver
+      - Open Silver
+      - Silver
+      - Pre Gold
+      - Intermediate Gold
+      - Full Gold
     Open Gold:
-    - Pre Silver
-    - Intermediate Silver
-    - Full Silver
-    - Open Silver
-    - Silver
-    - Pre Gold
-    - Intermediate Gold
-    - Full Gold
-    - Open Gold
+      - Pre Silver
+      - Intermediate Silver
+      - Full Silver
+      - Open Silver
+      - Silver
+      - Pre Gold
+      - Intermediate Gold
+      - Full Gold
+      - Open Gold
     Gold:
-    - Pre Silver
-    - Intermediate Silver
-    - Full Silver
-    - Open Silver
-    - Silver
-    - Pre Gold
-    - Intermediate Gold
-    - Full Gold
-    - Open Gold
-    - Gold
+      - Pre Silver
+      - Intermediate Silver
+      - Full Silver
+      - Open Silver
+      - Silver
+      - Pre Gold
+      - Intermediate Gold
+      - Full Gold
+      - Open Gold
+      - Gold
+- type: Amateur-Amateur
+  status: Student-Student
+  sex:
+    - Male-Female
+    - Male-Male
+    - Female-Female
+  age:
+    Y19-34: [19-34,16-34]
+    Y35-44: [30-44,35-44]
+    Y45-49: [40-49,45-49]
+    Y50-54: [50-54,50-54]
+    Y55-64: [50-64,55-64]
+    Y65-74: [50-74,65-74]
+    Y75-99: [70-99,75-99]
+  proficiency:
     Novice:
-    - Pre Silver
-    - Intermediate Silver
-    - Full Silver
-    - Open Silver
-    - Silver
-    - Pre Gold
-    - Intermediate Gold
-    - Full Gold
-    - Open Gold
-    - Gold
-    - Novice
+      - Pre Silver
+      - Intermediate Silver
+      - Full Silver
+      - Open Silver
+      - Silver
+      - Pre Gold
+      - Intermediate Gold
+      - Full Gold
+      - Open Gold
+      - Gold
+      - Novice
     Pre Championship:
-    - Pre Gold
-    - Intermediate Gold
-    - Full Gold
-    - Open Gold
-    - Gold
-    - Novice
-    - Gold Star 1
-    - Pre Championship
+      - Pre Gold
+      - Intermediate Gold
+      - Full Gold
+      - Open Gold
+      - Gold
+      - Novice
+      - Gold Star 1
+      - Pre Championship
     Gold Star 1:
-    - Pre Gold
-    - Intermediate Gold
-    - Full Gold
-    - Open Gold
-    - Gold
-    - Novice
-    - Gold Star 1
-    - Pre Championship
+      - Pre Gold
+      - Intermediate Gold
+      - Full Gold
+      - Open Gold
+      - Gold
+      - Novice
+      - Gold Star 1
+      - Pre Championship
     Championship:
-    - Gold Star 1
-    - Pre Championship
-    - Championship
-    - Gold Star 2
+      - Gold Star 1
+      - Pre Championship
+      - Championship
+      - Gold Star 2
     Gold Star 2:
-    - Gold Star 1
-    - Pre Championship
-    - Gold Star 1
-    - Championship
+      - Gold Star 1
+      - Pre Championship
+      - Gold Star 1
+      - Championship
 - type: Amateur-Amateur
   status: Student-Student
   sex:

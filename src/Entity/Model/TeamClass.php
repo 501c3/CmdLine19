@@ -2,6 +2,7 @@
 
 namespace App\Entity\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use /** @noinspection PhpUnusedAliasInspection */
     Doctrine\ORM\Mapping as ORM;
 
@@ -25,7 +26,7 @@ class TeamClass
     /**
      * @var array
      *
-     * @ORM\Column(name="describe", type="json", nullable=false)
+     * @ORM\Column(name="`describe`", type="json", nullable=false)
      */
     private $describe;
 
@@ -41,7 +42,7 @@ class TeamClass
      */
     public function __construct()
     {
-        $this->event = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->event = new ArrayCollection();
     }
 
     /**

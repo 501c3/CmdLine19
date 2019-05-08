@@ -4,8 +4,7 @@ namespace App\Entity\Setup;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use /** @noinspection PhpUnusedAliasInspection */
-    Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Model
@@ -76,15 +75,6 @@ class Model
         return $this->id;
     }
 
-    /**
-     * @param int $id
-     * @return Model
-     */
-    public function setId(int $id): Model
-    {
-        $this->id = $id;
-        return $this;
-    }
 
     /**
      * @return string
@@ -157,6 +147,4 @@ class Model
         $this->value = $value;
         return $this;
     }
-
-
 }
