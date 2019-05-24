@@ -12,12 +12,9 @@
 
 namespace App\Repository\Setup;
 
-
-use App\Entity\Setup\Person;
 use App\Entity\Setup\Team;
 use App\Entity\Setup\TeamClass;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 class TeamRepository extends ServiceEntityRepository
@@ -28,40 +25,30 @@ class TeamRepository extends ServiceEntityRepository
    }
 
     /**
-     * @param TeamClass $class
+     * @param TeamClass $teamClass
      * @param array $personCollections
      * @return array
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-   public function createTeamList(TeamClass $class, array $personCollections):array
+   public function createTeamList(TeamClass $teamClass, array $personCollections):array
    {
        $teamCollection = [];
        foreach($personCollections as $persons) {
            $team = new Team();
-           $team->setTeamClass($class);
-           $this->_em->persist($team);
-           /** @var ArrayCollection $collection */
-           $collection = $team->getPerson();
+           $team->setTeamClass($teamClass);
            switch(count($persons)) {
                case 1:
-                   /** @var Person $_person */
-                   $_person = $persons[0];
-                   $team->getPerson()->add($persons[0]);
-                   $team->setPersons([$_person->getId()]);
+                   $team->addPerson($persons[0]);
                    break;
                case 2:
-                   /** @var Person $_person1 */
-                   $_person1 = $persons[0];
-                   /** @var Person $_person2 */
-                   $_person2 = $persons[1];
-                   $team->getPerson()->add($_person1);
-                   $team->getPersons()->add($_person2);
-                   $team->setPersons([$_person1->getId(),$_person2->getId()]);
+                   $team->addPerson($persons[0])
+                        ->addPerson($persons[1]);
            }
-            $this->_em->flush();
+           $this->_em->persist($team);
            $teamCollection[]=$team;
        }
+       $this->_em->flush();
        return $teamCollection;
    }
 
@@ -70,7 +57,7 @@ class TeamRepository extends ServiceEntityRepository
        $arr=[];
        $qb = $this->createQueryBuilder('team');
        $qb->select('team','class','person')
-           ->innerJoin('team.class','class')
+           ->innerJoin('team.teamClass','class')
            ->innerJoin('team.person','person');
        $results = $qb->getQuery()->getResult();
        /** @var Team $result */
@@ -99,5 +86,6 @@ class TeamRepository extends ServiceEntityRepository
            }
            $arr[$type][$status][$sex][$proficiency][$age][]=$result;
        }
+       return $arr;
    }
 }

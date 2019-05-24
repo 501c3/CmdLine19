@@ -2,7 +2,6 @@
 
 namespace App\Entity\Setup;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,13 +21,6 @@ class Team
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
-    /**
-     * @var array
-     *
-     * @ORM\Column(name="persons", type="json", nullable=false)
-     */
-    private $persons;
 
     /**
      * @var \App\Entity\Setup\TeamClass
@@ -60,7 +52,7 @@ class Team
      */
     public function __construct()
     {
-        $this->person = new ArrayCollection();
+        $this->person = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -78,24 +70,6 @@ class Team
     public function setId(int $id): Team
     {
         $this->id = $id;
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getPersons(): array
-    {
-        return $this->persons;
-    }
-
-    /**
-     * @param array $persons
-     * @return Team
-     */
-    public function setPersons(array $persons): Team
-    {
-        $this->persons = $persons;
         return $this;
     }
 
@@ -125,14 +99,21 @@ class Team
         return $this->person;
     }
 
+
     /**
-     * @param Collection $person
+     * @param Person $person
      * @return Team
      */
-    public function setPerson(Collection $person): Team
+    public function addPerson(Person $person) : Team
     {
-        $this->person = $person;
+        $this->person->add($person);
         return $this;
+    }
+
+
+    public function getPersonMembers()
+    {
+        return $this->person;
     }
 
 }

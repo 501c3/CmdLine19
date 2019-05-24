@@ -16,6 +16,12 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 
 class PersonRepository extends ServiceEntityRepository
 {
+    /** @var array */
+    private $proficiencyYears;
+
+    /** @var array */
+    private $yearsProficiency;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Person::class);
@@ -23,7 +29,8 @@ class PersonRepository extends ServiceEntityRepository
 
     /**
      * @param array $describe
-     * @param $years
+     * @param int $years
+     * @param array $values
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -73,4 +80,63 @@ class PersonRepository extends ServiceEntityRepository
         }
         return $arr;
     }
+
+    public function fetchProficiencyYears()
+    {
+        if(isset($this->proficiencyYears)){
+            return $this->proficiencyYears;
+        }
+        $arr = [];
+        /** @var Person $rec */
+        foreach($this->findAll() as $rec) {
+            $d = $rec->getDescribe();
+            $designate = $d['designate'];
+            $proficiency = $d['proficiency'];
+            $years = $d['years'];
+            if(!isset($arr[$proficiency])) {
+                $arr[$proficiency]=[];
+            }
+            if(!isset($arr[$proficiency][$years])) {
+                $arr[$proficiency][$years]=[];
+            }
+            if(!isset($arr[$proficiency][$years][$designate])) {
+                $arr[$proficiency][$years][$designate] = new ArrayCollection();
+            }
+            /** @var ArrayCollection $collection */
+            $collection = $arr[$proficiency][$years][$designate];
+            $collection->set($rec->getId(),$rec);
+        }
+        $this->proficiencyYears=$arr;
+        return $arr;
+    }
+
+    public function fetchYearsProficiency()
+    {
+        if(isset($this->proficiencyYears)) {
+            return $this->proficiencyYears;
+        }
+        $arr = [];
+        /** @var Person $rec */
+        foreach($this->findAll() as $rec) {
+            $d = $rec->getDescribe();
+            $designate = $d['designate'];
+            $years = $d['years'];
+            $proficiency = $d['proficiency'];
+            if(!isset($arr[$years])) {
+                $arr[$years]=[];
+            }
+            if(!isset($arr[$years][$proficiency])) {
+                $arr[$years][$proficiency]=[];
+            }
+            if(!isset($arr[$years][$proficiency][$designate])) {
+                $arr[$years][$proficiency][$designate]=new ArrayCollection();
+            }
+            /** @var ArrayCollection $collection */
+            $collection = $arr[$years][$proficiency][$designate];
+            $collection->set($rec->getId(),$rec);
+        }
+        $this->yearsProficiency=$arr;
+        return $arr;
+    }
+
 }

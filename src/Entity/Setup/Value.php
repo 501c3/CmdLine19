@@ -3,7 +3,6 @@
 namespace App\Entity\Setup;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -48,21 +47,21 @@ class Value
     private $domain;
 
     /**
-     * @var Collection
+     * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="App\Entity\Setup\Event", mappedBy="value")
      */
     private $event;
 
     /**
-     * @var Collection
+     * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="App\Entity\Setup\Model", mappedBy="value")
      */
     private $model;
 
     /**
-     * @var Collection
+     * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="App\Entity\Setup\Person", mappedBy="value")
      */
@@ -142,58 +141,59 @@ class Value
     }
 
     /**
-     * @return Collection
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getEvent(): Collection
+    public function getEvent(): \Doctrine\Common\Collections\Collection
     {
         return $this->event;
     }
 
     /**
-     * @param Collection $event
+     * @param \Doctrine\Common\Collections\Collection $event
      * @return Value
      */
-    public function setEvent(Collection $event): Value
+    public function setEvent(\Doctrine\Common\Collections\Collection $event): Value
     {
         $this->event = $event;
         return $this;
     }
 
     /**
-     * @return Collection
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getModel(): Collection
+    public function getModel(): \Doctrine\Common\Collections\Collection
     {
         return $this->model;
     }
 
     /**
-     * @param Collection $model
+     * @param \Doctrine\Common\Collections\Collection $model
      * @return Value
      */
-    public function setModel(Collection $model): Value
+    public function setModel(\Doctrine\Common\Collections\Collection $model): Value
     {
         $this->model = $model;
         return $this;
     }
 
     /**
-     * @return Collection
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getPerson(): Collection
+    public function getPerson(): \Doctrine\Common\Collections\Collection
     {
         return $this->person;
     }
 
     /**
-     * @param Collection $person
+     * @param \Doctrine\Common\Collections\Collection $person
      * @return Value
      */
-    public function setPerson(Collection $person): Value
+    public function setPerson(\Doctrine\Common\Collections\Collection $person): Value
     {
         $this->person = $person;
         return $this;
     }
+
 
 
 }

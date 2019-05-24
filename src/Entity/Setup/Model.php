@@ -3,7 +3,6 @@
 namespace App\Entity\Setup;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -45,7 +44,7 @@ class Model
     private $updated;
 
     /**
-     * @var Collection
+     * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="App\Entity\Setup\Value", inversedBy="model")
      * @ORM\JoinTable(name="model_has_value",
@@ -67,14 +66,16 @@ class Model
         $this->value = new ArrayCollection();
     }
 
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
 
+    /**
+     * @param int $id
+     * @return Model
+     */
+    public function setId(int $id): Model
+    {
+        $this->id = $id;
+        return $this;
+    }
 
     /**
      * @return string
@@ -131,20 +132,23 @@ class Model
     }
 
     /**
-     * @return Collection
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getValue(): Collection
+    public function getValue(): \Doctrine\Common\Collections\Collection
     {
         return $this->value;
     }
 
     /**
-     * @param Collection $value
+     * @param \Doctrine\Common\Collections\Collection $value
      * @return Model
      */
-    public function setValue(Collection $value): Model
+    public function setValue(\Doctrine\Common\Collections\Collection $value): Model
     {
         $this->value = $value;
         return $this;
     }
+
+
+
 }

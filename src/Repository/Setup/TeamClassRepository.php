@@ -13,9 +13,9 @@
 namespace App\Repository\Setup;
 
 
+use App\Entity\Setup\Team;
 use App\Entity\Setup\TeamClass;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 class TeamClassRepository extends ServiceEntityRepository
@@ -34,6 +34,8 @@ class TeamClassRepository extends ServiceEntityRepository
    public function create(array $describe)
    {
        $class = new TeamClass();
+       $idList = [];
+       /** @var Team $team */
        $class->setDescribe($describe);
        $this->_em->persist($class);
        $this->_em->flush();

@@ -2,8 +2,6 @@
 
 namespace App\Entity\Setup;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -33,12 +31,12 @@ class Person
     /**
      * @var array
      *
-     * @ORM\Column(name="`describe`", type="json", nullable=false)
+     * @ORM\Column(name="describe", type="json", nullable=false)
      */
     private $describe;
 
     /**
-     * @var Collection
+     * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="App\Entity\Setup\Value", inversedBy="person")
      * @ORM\JoinTable(name="person_has_value",
@@ -53,7 +51,7 @@ class Person
     private $value;
 
     /**
-     * @var Collection
+     * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="App\Entity\Setup\Team", mappedBy="person")
      */
@@ -64,8 +62,8 @@ class Person
      */
     public function __construct()
     {
-        $this->value = new ArrayCollection();
-        $this->team = new ArrayCollection();
+        $this->value = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->team = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -74,16 +72,6 @@ class Person
     public function getId(): int
     {
         return $this->id;
-    }
-
-    /**
-     * @param int $id
-     * @return Person
-     */
-    public function setId(int $id): Person
-    {
-        $this->id = $id;
-        return $this;
     }
 
     /**
@@ -123,40 +111,39 @@ class Person
     }
 
     /**
-     * @return Collection
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getValue(): Collection
+    public function getValue(): \Doctrine\Common\Collections\Collection
     {
         return $this->value;
     }
 
     /**
-     * @param Collection $value
+     * @param \Doctrine\Common\Collections\Collection $value
      * @return Person
      */
-    public function setValue(Collection $value): Person
+    public function setValue(\Doctrine\Common\Collections\Collection $value): Person
     {
         $this->value = $value;
         return $this;
     }
 
     /**
-     * @return Collection
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getTeam(): Collection
+    public function getTeam(): \Doctrine\Common\Collections\Collection
     {
         return $this->team;
     }
 
     /**
-     * @param Collection $team
+     * @param \Doctrine\Common\Collections\Collection $team
      * @return Person
      */
-    public function setTeam(Collection $team): Person
+    public function setTeam(\Doctrine\Common\Collections\Collection $team): Person
     {
         $this->team = $team;
         return $this;
     }
-
 
 }

@@ -17,11 +17,13 @@ use App\Entity\Setup\AgeTeam;
 use App\Entity\Setup\Person;
 use App\Entity\Setup\PrfTeam;
 use App\Entity\Setup\Team;
+use App\Entity\Setup\TeamClass;
 use App\Kernel;
 use App\Repository\Setup\AgeTeamRepository;
 use App\Repository\Setup\PrfTeamRepository;
-use App\Repository\Setup\TeamRepository;
+use App\Repository\Setup\TeamClassRepository;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
+use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Dotenv\Dotenv;
@@ -176,55 +178,66 @@ class Code1400SetupTeamClassTest extends KernelTestCase
     private function iterateThroughDatabase(array $expected)
     {
         $em = self::$kernel->getContainer()->get('doctrine.orm.setup_entity_manager');
-        /** @var TeamRepository $repository */
-        $repository=$em->getRepository(Team::class);
-        /** @var array $actual */
-        $actual = $repository->fetchQuickSearch();
+        /** @var TeamClassRepository $repositoryTeamClass */
+        $repositoryTeamClass=$em->getRepository(TeamClass::class);
+        /** @var array $actualClass */
+        $actualClass = $repositoryTeamClass->fetchQuickSearch();
         foreach($expected as $expectedType=>$expectedStatusList) {
-            $this->assertArrayHasKey($expectedType,$actual);
+            $this->assertArrayHasKey($expectedType,$actualClass);
             foreach($expectedStatusList as $expectedStatus=>$expectedSexList) {
-                $this->assertArrayHasKey($expectedStatus, $actual[$expectedType]);
+                $this->assertArrayHasKey($expectedStatus, $actualClass[$expectedType]);
                 foreach($expectedSexList as $expectedSex=>$expectedProficiencyList) {
-                    $this->assertArrayHasKey($expectedSex, $actual[$expectedType][$expectedStatus]);
+                    $this->assertArrayHasKey($expectedSex, $actualClass[$expectedType][$expectedStatus]);
                     foreach($expectedProficiencyList as $expectedProficiency=>$expectedAgeList) {
-                        $this->assertArrayHasKey($expectedProficiency, $actual[$expectedType][$expectedStatus][$expectedSex]);
-                        foreach($expectedAgeList as $expectedAge=>$teamCollection){
+                        $this->assertArrayHasKey($expectedProficiency, $actualClass[$expectedType][$expectedStatus][$expectedSex]);
+                        foreach($expectedAgeList as $expectedAge=>$collection){
                             /** @var Team $team */
-                            foreach($teamCollection as $team) {
-                                $class = $team->getTeamClass();
-                                $expectedDescribe=[ 'type'=>$expectedType,
-                                                    'status'=>$expectedStatus,
-                                                    'sex'=>$expectedSex,
-                                                    'proficiency'=>$expectedProficiency,
-                                                    'age'=>$expectedAge];
-                                $actualDescribe = $class->getDescribe();
-                                $this->assertEquals($expectedDescribe,$actualDescribe);
-                                $persons = $team->getPerson()->toArray();
-                                foreach($persons as $person) {
-                                    switch(count($person)){
-                                        case 1:
-                                            /** @var Person $soloPerson */
-                                            $soloPerson = $person[0];
-                                            $describe = $soloPerson->getDescribe();
-                                            $this->assertEquals($expectedStatus, $describe['status']);
-                                            $this->assertEquals($expectedType, $describe['type']);
-                                            $this->assertEquals($expectedProficiency, $describe['proficiency']);
-                                            break;
-                                        case 2:
-                                            /** @var Person $leftPerson */
-                                            $leftPerson = $person[0];
-                                            /** @var Person $rightPerson */
-                                            $rightPerson= $person[1];
-                                            $leftDescribe = $leftPerson->getDescribe();
-                                            $rightDescribe= $rightPerson->getDescribe();
-                                            $teamProficiency=$leftDescribe['proficiency']==$expectedProficiency?
-                                                           $leftDescribe['proficiency']:$rightDescribe['proficiency'];
-                                            $teamAge = $leftDescribe['age']==$expectedAge?
-                                                            $leftDescribe['age']:$rightDescribe['age'];
-                                            $this->assertEquals($expectedProficiency, $teamProficiency);
-                                            $this->assertEquals($expectedAge, $teamAge);
-                                    }
-                                }
+                            foreach($collection as $team) {
+//                                $members = $team->getPersonMembers()->toArray();
+//                                switch(count($members)) {
+//                                    case 1:
+//                                        /** @var Person $soloPerson */
+//                                        $soloPerson = $members[0];
+//                                        $describe = $soloPerson->getDescribe();
+//                                        $this->assertEquals($expectedStatus, $describe['status']);
+//                                        $this->assertEquals($expectedType, $describe['type']);
+//                                        $this->assertEquals($expectedProficiency, $describe['proficiency']);
+//                                        $this->assertEquals('A', $describe['designate']);
+//                                        break;
+//                                    case 2:
+//                                        /** @var Person $leftPerson */
+//                                        $leftPerson = $members[0];
+//                                        /** @var Person $rightPerson */
+//                                        $rightPerson = $members[1];
+//                                        $leftDescribe = $leftPerson->getDescribe();
+//                                        $rightDescribe = $rightPerson->getDescribe();
+//                                        $this->assertEquals($leftDescribe['designate'], 'A');
+//                                        $this->assertEquals($rightDescribe['designate'], 'B');
+//                                        $teamProficiency = $leftDescribe['proficiency'] == $expectedProficiency ?
+//                                            $leftDescribe['proficiency'] : $rightDescribe['proficiency'];
+//                                        $this->assertEquals($expectedProficiency, $teamProficiency);
+//                                        switch ($leftDescribe['sex']) {
+//                                            case 'Male':
+//                                                switch ($rightDescribe['sex']) {
+//                                                    case 'Male':
+//                                                        $this->assertEquals($expectedSex, 'Male-Male');
+//                                                        break;
+//                                                    case 'Female':
+//                                                        $this->assertEquals($expectedSex, 'Male-Female');
+//                                                        break;
+//                                                }
+//                                                break;
+//                                            case 'Female':
+//                                                switch ($rightDescribe['sex']) {
+//                                                    case 'Male':
+//                                                        $this->assertEquals($expectedSex, 'Male-Female');
+//                                                        break;
+//                                                    case 'Female':
+//                                                        $this->assertEquals($expectedSex, 'Female-Female');
+//                                                }
+//                                                break;
+//                                        }
+//                                }
                             }
                         }
                     }

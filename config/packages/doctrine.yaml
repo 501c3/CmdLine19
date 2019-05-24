@@ -104,6 +104,10 @@ doctrine:
                         prefix: 'App\Entity\Sales'
                         alias: Sales
             setup:
+                dql:
+                    string_functions:
+                        JSON_EXTRACT: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonExtract
+                        JSON_LENGTH: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonLength
                 connection: setup
                 mappings:
                     Sales:

@@ -13,17 +13,27 @@
 namespace App\Common;
 
 
+use App\Entity\Setup\AgeClass;
+use App\Entity\Setup\AgeTeam;
 use App\Entity\Setup\Person;
+use App\Entity\Setup\PrfClass;
+use App\Entity\Setup\PrfTeam;
 use App\Entity\Setup\Team;
 use App\Entity\Setup\TeamClass;
+use App\Entity\Setup\Tss;
 use App\Entity\Setup\Value;
+use App\Repository\Setup\AgeClassRepository;
 use App\Repository\Setup\AgeTeamClassRepository;
 use App\Repository\Setup\AgeTeamRepository;
 use App\Repository\Setup\PersonRepository;
+use App\Repository\Setup\PrfClassRepository;
 use App\Repository\Setup\PrfTeamRepository;
 use App\Repository\Setup\TeamRepository;
+use App\Repository\Setup\TssRepository;
 use App\Repository\Setup\ValueRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Exception;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
@@ -31,7 +41,22 @@ class YamlDbSetupTeamClass extends YamlDbSetupPerson
 {
    const TEAM_DOMAIN_KEYS = ['type','status','sex','age','proficiency'];
 
-   private $team = [];
+   private $teamClass = [];
+
+   /** @var PrfTeamRepository */
+   private $prfTeamRepository;
+
+   /** @var AgeTeamRepository */
+   private $ageTeamRepository;
+
+   /** @var PrfClassRepository */
+   private $prfClassRepository;
+
+   /** @var AgeClassRepository */
+   private $ageClassRepository;
+
+   /** @var TssRepository */
+   private $tssRepository;
 
    public function __construct(EntityManagerInterface $entityManager, EventDispatcher $dispatcher = null)
    {
@@ -42,14 +67,19 @@ class YamlDbSetupTeamClass extends YamlDbSetupPerson
        $personRepository=$this->entityManager->getRepository(Person::class);
        $this->value=$valueRepository->fetchQuickSearch();
        $this->person=$personRepository->fetchQuickSearch();
+       $this->prfTeamRepository = $this->entityManager->getRepository(PrfTeam::class);
+       $this->ageTeamRepository = $this->entityManager->getRepository(AgeTeam::class);
+       $this->prfClassRepository = $this->entityManager->getRepository(PrfClass::class);
+       $this->ageClassRepository = $this->entityManager->getRepository(AgeClass::class);
+       $this->tssRepository=$this->entityManager->getRepository(Tss::class);
    }
 
     /**
      * @param string $file
      * @return array
      * @throws AppParseException
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      * @throws Exception
      */
    public function parseTeams(string $file) {
@@ -74,10 +104,12 @@ class YamlDbSetupTeamClass extends YamlDbSetupPerson
                list($key) = explode('|', $keyPosition);
                $cache[$key] = $this->teamClassValuesCheck($file, $key, $dataPosition);
            }
-           $this->teamClassValuesBuild($cache);
+
+           $this->tssPrfAgeClassBuild($cache);
+           $this->teamClassJsonBuild($cache);
            $this->sendWorkingStatus();
        }
-       return $this->team;
+       return $this->teamClass;
    }
 
     /**
@@ -155,41 +187,41 @@ class YamlDbSetupTeamClass extends YamlDbSetupPerson
 
     /**
      * @param array $cache
-     * @throws AppBuildException
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
-    private function teamClassValuesBuild(array $cache)
+    private function teamClassJsonBuild(array $cache)
     {
         $classRepository = $this->entityManager->getRepository(TeamClass::class);
         /** @var TeamRepository $teamRepository */
-        $teamRepository = $this->entityManager->getRepository(Team::class);
+        //$teamRepository = $this->entityManager->getRepository(Team::class);
         $type = $cache['type'];
         $status = $cache['status'];
-        if(!isset($this->team[$type])) {
-            $this->team[$type]=[];
+        if(!isset($this->teamClass[$type])) {
+            $this->teamClass[$type]=[];
         }
-        if(!isset($this->team[$type][$status])) {
-            $this->team[$type][$status] = [];
+        if(!isset($this->teamClass[$type][$status])) {
+            $this->teamClass[$type][$status] = [];
         }
         foreach($cache['sex'] as $sex)  {
             $describe = ['type'=>$type, 'status'=>$status, 'sex'=>$sex];
-            if(!isset($this->team[$type][$status][$sex])) {
-                $this->team[$type][$status][$sex] = [];
+            if(!isset($this->teamClass[$type][$status][$sex])) {
+                $this->teamClass[$type][$status][$sex] = [];
+
             }
             foreach($cache['proficiency'] as $teamProficiency=>$partnerProficiencyList) {
                 $describe1 = $describe;
                 $describe1['proficiency']=$teamProficiency;
-                if(!isset($this->team[$type][$status][$sex][$teamProficiency])) {
-                    $this->team[$type][$status][$sex][$teamProficiency]=[];
+                if(!isset($this->teamClass[$type][$status][$sex][$teamProficiency])) {
+                    $this->teamClass[$type][$status][$sex][$teamProficiency]=[];
                 }
                 foreach($cache['age'] as $teamAge=>$teamAgeRanges) {
                     $describe2=$describe1;
                     $describe2['age']=$teamAge;
-                    $class = $classRepository->create($describe2);
-                    $personsInTeams = $this->personsInTeams($class,$partnerProficiencyList,$teamAgeRanges);
-                    $teams = $teamRepository->createTeamList($class, $personsInTeams);
-                    $this->team[$type][$status][$sex][$teamProficiency][$teamAge]=$teams;
+                    $teamClass = $classRepository->create($describe2);
+                   // $personsInTeams = $this->personsInTeams($describe2,$partnerProficiencyList,$teamAgeRanges);
+                   // $teamList = $teamRepository->createTeamList($teamClass, $personsInTeams);
+                   $this->teamClass[$type][$status][$sex][$teamProficiency][$teamAge]=$teamClass;
                 }
             }
         }
@@ -197,15 +229,61 @@ class YamlDbSetupTeamClass extends YamlDbSetupPerson
 
 
     /**
-     * @param TeamClass $class
+     * @param $cache
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    private function tssPrfAgeClassBuild($cache)
+    {
+        $type = $cache['type'];
+        $status= $cache['status'];
+        foreach($cache['sex'] as $sex) {
+            /** @var Tss $tss */
+            $describe = ['type'=>$type,'status'=>$status,'sex'=>$sex];
+            $tss = $this->tssRepository->fetch($describe);
+            $prfTeams = [];
+            $prfClassList = [];
+            foreach($cache['proficiency'] as $teamProficiency=>$partnerProficiencyList) {
+                /** @var PrfClass $prfClass */
+                $prfClass = $this->prfClassRepository->fetch($tss, $teamProficiency);
+                $prfClassList[]=$prfClass;
+                $prfTeams[$teamProficiency]
+                    = $this->prfTeamRepository->createTeams($tss, $prfClass,$partnerProficiencyList);
+            }
+            $ageTeams = [];
+            foreach($cache['age'] as $teamAge=>$personAgeRanges){
+                $ageClass = $this->ageClassRepository->fetch($tss,$teamAge);
+                /** @var PrfClass $prfClass */
+                foreach($prfClassList as $prfClass) {
+                    $prfClass->addAgeClass($ageClass);
+                }
+                switch(count(explode('-',$type))){
+                    case 1:
+                        list($lb,$ub) = explode('-',$personAgeRanges[0]);
+                        $_lb = (int) $lb; $_ub = (int) $ub;
+                        $ageTeams[$teamAge]
+                            =$this->ageTeamRepository->createTeams($tss, $ageClass,[$_lb,$_ub]);
+                        break;
+                    case 2:
+                        list($lb0,$ub0)=explode('-',$personAgeRanges[0]);
+                        list($lb1,$ub1)=explode('-',$personAgeRanges[1]);
+                        $_lb0 = (int) $lb0; $_ub0= (int) $ub0; $_lb1= (int) $lb1; $_ub1 = (int) $ub1;
+                        $ageTeams[$teamAge]
+                            =$this->ageTeamRepository->createTeams($tss,$ageClass,[$_lb0,$_ub0],[$_lb1,$_ub1]);
+                }
+            }
+        }
+    }
+
+    /**
+     * @param array $describe
      * @param array $partnerProficiencyList
      * @param array $personAgeRanges
      * @return array
      * @throws AppBuildException
      */
-    private function personsInTeams(TeamClass $class, array $partnerProficiencyList, array $personAgeRanges): array
+    private function personsInTeams(array $describe, array $partnerProficiencyList, array $personAgeRanges): array
     {
-        $describe = $class->getDescribe();
         $teamProficiency = $describe['proficiency'];
         $leadProficiency = $teamProficiency;
         $type = explode('-',$describe['type']);

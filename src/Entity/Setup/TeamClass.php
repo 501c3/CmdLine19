@@ -2,7 +2,7 @@
 
 namespace App\Entity\Setup;
 
-use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,7 +30,7 @@ class TeamClass
     private $describe;
 
     /**
-     * @var Collection
+     * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="App\Entity\Setup\Event", mappedBy="teamClass")
      */
@@ -41,7 +41,7 @@ class TeamClass
      */
     public function __construct()
     {
-        $this->event = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->event = new ArrayCollection();
     }
 
     /**
@@ -72,18 +72,18 @@ class TeamClass
     }
 
     /**
-     * @return Collection
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getEvent(): Collection
+    public function getEvent(): \Doctrine\Common\Collections\Collection
     {
         return $this->event;
     }
 
     /**
-     * @param Collection $event
+     * @param \Doctrine\Common\Collections\Collection $event
      * @return TeamClass
      */
-    public function setEvent(Collection $event): TeamClass
+    public function setEvent(\Doctrine\Common\Collections\Collection $event): TeamClass
     {
         $this->event = $event;
         return $this;

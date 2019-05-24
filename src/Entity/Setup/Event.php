@@ -3,7 +3,6 @@
 namespace App\Entity\Setup;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -41,7 +40,7 @@ class Event
     private $model;
 
     /**
-     * @var Collection
+     * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="App\Entity\Setup\TeamClass", inversedBy="event")
      * @ORM\JoinTable(name="event_has_team_class",
@@ -56,7 +55,7 @@ class Event
     private $teamClass;
 
     /**
-     * @var Collection
+     * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="App\Entity\Setup\Value", inversedBy="event")
      * @ORM\JoinTable(name="event_has_value",
@@ -87,15 +86,7 @@ class Event
         return $this->id;
     }
 
-    /**
-     * @param int $id
-     * @return Event
-     */
-    public function setId(int $id): Event
-    {
-        $this->id = $id;
-        return $this;
-    }
+
 
     /**
      * @return array
@@ -134,36 +125,36 @@ class Event
     }
 
     /**
-     * @return Collection
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getTeamClass(): Collection
+    public function getTeamClass(): \Doctrine\Common\Collections\Collection
     {
         return $this->teamClass;
     }
 
     /**
-     * @param Collection $teamClass
+     * @param \Doctrine\Common\Collections\Collection $teamClass
      * @return Event
      */
-    public function setTeamClass(Collection $teamClass): Event
+    public function setTeamClass(\Doctrine\Common\Collections\Collection $teamClass): Event
     {
         $this->teamClass = $teamClass;
         return $this;
     }
 
     /**
-     * @return Collection
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getValue(): Collection
+    public function getValue(): \Doctrine\Common\Collections\Collection
     {
         return $this->value;
     }
 
     /**
-     * @param Collection $value
+     * @param \Doctrine\Common\Collections\Collection $value
      * @return Event
      */
-    public function setValue(Collection $value): Event
+    public function setValue(\Doctrine\Common\Collections\Collection $value): Event
     {
         $this->value = $value;
         return $this;
