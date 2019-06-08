@@ -18,7 +18,6 @@ use App\Entity\Setup\AgeTeam;
 use App\Entity\Setup\Person;
 use App\Entity\Setup\PrfClass;
 use App\Entity\Setup\PrfTeam;
-use App\Entity\Setup\Team;
 use App\Entity\Setup\TeamClass;
 use App\Entity\Setup\Tss;
 use App\Entity\Setup\Value;
@@ -39,40 +38,40 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class YamlDbSetupTeamClass extends YamlDbSetupPerson
 {
-   const TEAM_DOMAIN_KEYS = ['type','status','sex','age','proficiency'];
+    const TEAM_DOMAIN_KEYS = ['type', 'status', 'sex', 'age', 'proficiency'];
 
-   private $teamClass = [];
+    private $teamClass = [];
 
-   /** @var PrfTeamRepository */
-   private $prfTeamRepository;
+    /** @var PrfTeamRepository */
+    private $prfTeamRepository;
 
-   /** @var AgeTeamRepository */
-   private $ageTeamRepository;
+    /** @var AgeTeamRepository */
+    private $ageTeamRepository;
 
-   /** @var PrfClassRepository */
-   private $prfClassRepository;
+    /** @var PrfClassRepository */
+    private $prfClassRepository;
 
-   /** @var AgeClassRepository */
-   private $ageClassRepository;
+    /** @var AgeClassRepository */
+    private $ageClassRepository;
 
-   /** @var TssRepository */
-   private $tssRepository;
+    /** @var TssRepository */
+    private $tssRepository;
 
-   public function __construct(EntityManagerInterface $entityManager, EventDispatcher $dispatcher = null)
-   {
-       parent::__construct($entityManager, $dispatcher);
-       /** @var ValueRepository $valueRepository */
-       $valueRepository=$this->entityManager->getRepository(Value::class);
-       /** @var PersonRepository $personRepository */
-       $personRepository=$this->entityManager->getRepository(Person::class);
-       $this->value=$valueRepository->fetchQuickSearch();
-       $this->person=$personRepository->fetchQuickSearch();
-       $this->prfTeamRepository = $this->entityManager->getRepository(PrfTeam::class);
-       $this->ageTeamRepository = $this->entityManager->getRepository(AgeTeam::class);
-       $this->prfClassRepository = $this->entityManager->getRepository(PrfClass::class);
-       $this->ageClassRepository = $this->entityManager->getRepository(AgeClass::class);
-       $this->tssRepository=$this->entityManager->getRepository(Tss::class);
-   }
+    public function __construct(EntityManagerInterface $entityManager, EventDispatcher $dispatcher = null)
+    {
+        parent::__construct($entityManager, $dispatcher);
+        /** @var ValueRepository $valueRepository */
+        $valueRepository = $this->entityManager->getRepository(Value::class);
+        /** @var PersonRepository $personRepository */
+        $personRepository = $this->entityManager->getRepository(Person::class);
+        $this->value = $valueRepository->fetchQuickSearch();
+        $this->person = $personRepository->fetchQuickSearch();
+        $this->prfTeamRepository = $this->entityManager->getRepository(PrfTeam::class);
+        $this->ageTeamRepository = $this->entityManager->getRepository(AgeTeam::class);
+        $this->prfClassRepository = $this->entityManager->getRepository(PrfClass::class);
+        $this->ageClassRepository = $this->entityManager->getRepository(AgeClass::class);
+        $this->tssRepository = $this->entityManager->getRepository(Tss::class);
+    }
 
     /**
      * @param string $file
@@ -82,35 +81,37 @@ class YamlDbSetupTeamClass extends YamlDbSetupPerson
      * @throws OptimisticLockException
      * @throws Exception
      */
-   public function parseTeams(string $file) {
-       $agePrfPositionArray = YamlPosition::yamlAddPosition($file);
-       foreach($agePrfPositionArray as $records){
-           foreach($records as $keyPosition=>$valueList) {
-               list($key,$position) = explode('|',$keyPosition);
-               if(!in_array($key,self::TEAM_DOMAIN_KEYS)) {
-                   throw new AppParseException(AppExceptionCodes::FOUND_BUT_EXPECTED,
-                       [$file,$key,$position,self::TEAM_DOMAIN_KEYS]);
-               }
-           }
-           $keysPositions = array_keys($records);
-           $keysFound = YamlPosition::isolate($keysPositions);
-           $difference = array_diff(self::TEAM_DOMAIN_KEYS, $keysFound);
-           if (count($difference)) {
-               throw new AppParseException(AppExceptionCodes::MISSING_KEYS,
-                   [$file, $difference, $keysPositions]);
-           }
-           $cache = [];
-           foreach ($records as $keyPosition => $dataPosition) {
-               list($key) = explode('|', $keyPosition);
-               $cache[$key] = $this->teamClassValuesCheck($file, $key, $dataPosition);
-           }
+    public function parseTeams(string $file)
+    {
+        $agePrfPositionArray = YamlPosition::yamlAddPosition($file);
+        foreach ($agePrfPositionArray as $records) {
+            foreach ($records as $keyPosition => $valueList) {
+                list($key, $position) = explode('|', $keyPosition);
+                if (!in_array($key, self::TEAM_DOMAIN_KEYS)) {
+                    throw new AppParseException(AppExceptionCodes::FOUND_BUT_EXPECTED,
+                        [$file, $key, $position, self::TEAM_DOMAIN_KEYS]);
+                }
+            }
+            $keysPositions = array_keys($records);
+            $keysFound = YamlPosition::isolate($keysPositions);
+            $difference = array_diff(self::TEAM_DOMAIN_KEYS, $keysFound);
+            if (count($difference)) {
+                throw new AppParseException(AppExceptionCodes::MISSING_KEYS,
+                    [$file, $difference, $keysPositions]);
+            }
+            $cache = [];
+            foreach ($records as $keyPosition => $dataPosition) {
+                list($key) = explode('|', $keyPosition);
+                $cache[$key] = $this->teamClassValuesCheck($file, $key, $dataPosition);
+            }
 
-           $this->tssPrfAgeClassBuild($cache);
-           $this->teamClassJsonBuild($cache);
-           $this->sendWorkingStatus();
-       }
-       return $this->teamClass;
-   }
+            $this->tssPrfAgeClassBuild($cache);
+            $this->teamClassJsonBuild($cache);
+            $this->tableBuild();
+            $this->sendWorkingStatus();
+        }
+        return $this->teamClass;
+    }
 
     /**
      * @param $file
@@ -120,69 +121,69 @@ class YamlDbSetupTeamClass extends YamlDbSetupPerson
      * @throws AppParseException
      * @throws Exception
      */
-   public function teamClassValuesCheck($file,$key,$valuesPositions)
-   {
-       switch($key) {
-           case 'type':
-           case 'status':
-               if(is_array($valuesPositions)) {
-                  $array = explode('|',$valuesPositions[0]);
-                  throw new AppParseException(AppExceptionCodes::FOUND_BUT_EXPECTED,
-                      [$file,'[',$array[1],'scaler']);
-               }
-               list($value,$position) = explode('|',$valuesPositions);
-               if(!isset($this->value[$key][$value])) {
-                   throw new AppParseException(AppExceptionCodes::UNRECOGNIZED_VALUE,
-                       [$file, $value, $position]);
-               }
-               break;
-           case 'age':
-               foreach($valuesPositions as $valuePos=>$yearRanges) {
-                   list($value,$position) = explode('|',$valuePos);
-                  if(!isset($this->value[$key][$value])) {
-                      throw new AppParseException(AppExceptionCodes::UNRECOGNIZED_VALUE,
-                          [$file, $value, $position]);
-                  }
-                  foreach($yearRanges as $rangePosition) {
+    public function teamClassValuesCheck($file, $key, $valuesPositions)
+    {
+        switch ($key) {
+            case 'type':
+            case 'status':
+                if (is_array($valuesPositions)) {
+                    $array = explode('|', $valuesPositions[0]);
+                    throw new AppParseException(AppExceptionCodes::FOUND_BUT_EXPECTED,
+                        [$file, '[', $array[1], 'scaler']);
+                }
+                list($value, $position) = explode('|', $valuesPositions);
+                if (!isset($this->value[$key][$value])) {
+                    throw new AppParseException(AppExceptionCodes::UNRECOGNIZED_VALUE,
+                        [$file, $value, $position]);
+                }
+                break;
+            case 'age':
+                foreach ($valuesPositions as $valuePos => $yearRanges) {
+                    list($value, $position) = explode('|', $valuePos);
+                    if (!isset($this->value[$key][$value])) {
+                        throw new AppParseException(AppExceptionCodes::UNRECOGNIZED_VALUE,
+                            [$file, $value, $position]);
+                    }
+                    foreach ($yearRanges as $rangePosition) {
 
-                      list($range,$position) = explode('|',$rangePosition);
-                      $result = preg_match('/(?P<lower>\w+)\-(?P<upper>\w+)/',$range, $bound);
-                      if(!$result ||
-                          (!is_numeric($bound['lower'])) || !is_numeric($bound['upper']) ||
-                          ($bound['lower']>$bound['upper'])) {
-                          throw new AppParseException(AppExceptionCodes::INVALID_RANGE, [$file,$range,$position]);
-                      }
-                  }
-               }
-               break;
-           case 'sex':
-               foreach($valuesPositions as $valuePos) {
-                   list($value,$position)=explode('|',$valuePos);
-                   /** @var YamlDbSetupBase $this */
-                   if(!isset($this->value[$key][$value])) {
-                       throw new AppParseException(AppExceptionCodes::UNRECOGNIZED_VALUE,
-                           [$file,$value,$position]);
-                   }
-               }
-               break;
-           case 'proficiency':
-               foreach($valuesPositions as $leftProficiencyPosition=>$rightProficiencyPositionList) {
-                   list($leftValue,$leftPosition) = explode('|',$leftProficiencyPosition);
-                   if(!isset($this->value[$key][$leftValue])) {
-                       throw new AppParseException(AppExceptionCodes::UNRECOGNIZED_VALUE,
-                           [$file,$leftValue,$leftPosition]);
-                   }
-                   foreach($rightProficiencyPositionList as $rightProficiencyPosition) {
-                       list($rightValue,$rightPosition)=explode('|',$rightProficiencyPosition);
-                       if(!isset($this->value[$key][$rightValue])) {
-                           throw new AppParseException(AppExceptionCodes::UNRECOGNIZED_VALUE,
-                               [$file,$rightValue,$rightPosition]);
-                       }
-                   }
-               }
-       }
-       return YamlPosition::isolate($valuesPositions);
-   }
+                        list($range, $position) = explode('|', $rangePosition);
+                        $result = preg_match('/(?P<lower>\w+)\-(?P<upper>\w+)/', $range, $bound);
+                        if (!$result ||
+                            (!is_numeric($bound['lower'])) || !is_numeric($bound['upper']) ||
+                            ($bound['lower'] > $bound['upper'])) {
+                            throw new AppParseException(AppExceptionCodes::INVALID_RANGE, [$file, $range, $position]);
+                        }
+                    }
+                }
+                break;
+            case 'sex':
+                foreach ($valuesPositions as $valuePos) {
+                    list($value, $position) = explode('|', $valuePos);
+                    /** @var YamlDbSetupBase $this */
+                    if (!isset($this->value[$key][$value])) {
+                        throw new AppParseException(AppExceptionCodes::UNRECOGNIZED_VALUE,
+                            [$file, $value, $position]);
+                    }
+                }
+                break;
+            case 'proficiency':
+                foreach ($valuesPositions as $leftProficiencyPosition => $rightProficiencyPositionList) {
+                    list($leftValue, $leftPosition) = explode('|', $leftProficiencyPosition);
+                    if (!isset($this->value[$key][$leftValue])) {
+                        throw new AppParseException(AppExceptionCodes::UNRECOGNIZED_VALUE,
+                            [$file, $leftValue, $leftPosition]);
+                    }
+                    foreach ($rightProficiencyPositionList as $rightProficiencyPosition) {
+                        list($rightValue, $rightPosition) = explode('|', $rightProficiencyPosition);
+                        if (!isset($this->value[$key][$rightValue])) {
+                            throw new AppParseException(AppExceptionCodes::UNRECOGNIZED_VALUE,
+                                [$file, $rightValue, $rightPosition]);
+                        }
+                    }
+                }
+        }
+        return YamlPosition::isolate($valuesPositions);
+    }
 
 
     /**
@@ -197,31 +198,29 @@ class YamlDbSetupTeamClass extends YamlDbSetupPerson
         //$teamRepository = $this->entityManager->getRepository(Team::class);
         $type = $cache['type'];
         $status = $cache['status'];
-        if(!isset($this->teamClass[$type])) {
-            $this->teamClass[$type]=[];
+        if (!isset($this->teamClass[$type])) {
+            $this->teamClass[$type] = [];
         }
-        if(!isset($this->teamClass[$type][$status])) {
+        if (!isset($this->teamClass[$type][$status])) {
             $this->teamClass[$type][$status] = [];
         }
-        foreach($cache['sex'] as $sex)  {
-            $describe = ['type'=>$type, 'status'=>$status, 'sex'=>$sex];
-            if(!isset($this->teamClass[$type][$status][$sex])) {
+        foreach ($cache['sex'] as $sex) {
+            $describe = ['type' => $type, 'status' => $status, 'sex' => $sex];
+            if (!isset($this->teamClass[$type][$status][$sex])) {
                 $this->teamClass[$type][$status][$sex] = [];
 
             }
-            foreach($cache['proficiency'] as $teamProficiency=>$partnerProficiencyList) {
+            foreach ($cache['proficiency'] as $teamProficiency => $partnerProficiencyList) {
                 $describe1 = $describe;
-                $describe1['proficiency']=$teamProficiency;
-                if(!isset($this->teamClass[$type][$status][$sex][$teamProficiency])) {
-                    $this->teamClass[$type][$status][$sex][$teamProficiency]=[];
+                $describe1['proficiency'] = $teamProficiency;
+                if (!isset($this->teamClass[$type][$status][$sex][$teamProficiency])) {
+                    $this->teamClass[$type][$status][$sex][$teamProficiency] = [];
                 }
-                foreach($cache['age'] as $teamAge=>$teamAgeRanges) {
-                    $describe2=$describe1;
-                    $describe2['age']=$teamAge;
+                foreach ($cache['age'] as $teamAge => $teamAgeRanges) {
+                    $describe2 = $describe1;
+                    $describe2['age'] = $teamAge;
                     $teamClass = $classRepository->create($describe2);
-                   // $personsInTeams = $this->personsInTeams($describe2,$partnerProficiencyList,$teamAgeRanges);
-                   // $teamList = $teamRepository->createTeamList($teamClass, $personsInTeams);
-                   $this->teamClass[$type][$status][$sex][$teamProficiency][$teamAge]=$teamClass;
+                    $this->teamClass[$type][$status][$sex][$teamProficiency][$teamAge] = $teamClass;
                 }
             }
         }
@@ -236,114 +235,52 @@ class YamlDbSetupTeamClass extends YamlDbSetupPerson
     private function tssPrfAgeClassBuild($cache)
     {
         $type = $cache['type'];
-        $status= $cache['status'];
-        foreach($cache['sex'] as $sex) {
+        $status = $cache['status'];
+        foreach ($cache['sex'] as $sex) {
             /** @var Tss $tss */
-            $describe = ['type'=>$type,'status'=>$status,'sex'=>$sex];
+            $describe = ['type' => $type, 'status' => $status, 'sex' => $sex];
             $tss = $this->tssRepository->fetch($describe);
             $prfTeams = [];
             $prfClassList = [];
-            foreach($cache['proficiency'] as $teamProficiency=>$partnerProficiencyList) {
+            foreach ($cache['proficiency'] as $teamProficiency => $partnerProficiencyList) {
                 /** @var PrfClass $prfClass */
                 $prfClass = $this->prfClassRepository->fetch($tss, $teamProficiency);
-                $prfClassList[]=$prfClass;
+                $prfClassList[] = $prfClass;
                 $prfTeams[$teamProficiency]
-                    = $this->prfTeamRepository->createTeams($tss, $prfClass,$partnerProficiencyList);
+                    = $this->prfTeamRepository->createTeams($tss, $prfClass, $partnerProficiencyList);
             }
             $ageTeams = [];
-            foreach($cache['age'] as $teamAge=>$personAgeRanges){
-                $ageClass = $this->ageClassRepository->fetch($tss,$teamAge);
+            foreach ($cache['age'] as $teamAge => $personAgeRanges) {
+                $ageClass = $this->ageClassRepository->fetch($tss, $teamAge);
                 /** @var PrfClass $prfClass */
-                foreach($prfClassList as $prfClass) {
+                foreach ($prfClassList as $prfClass) {
                     $prfClass->addAgeClass($ageClass);
                 }
-                switch(count(explode('-',$type))){
+                switch (count(explode('-', $type))) {
                     case 1:
-                        list($lb,$ub) = explode('-',$personAgeRanges[0]);
-                        $_lb = (int) $lb; $_ub = (int) $ub;
+                        list($lb, $ub) = explode('-', $personAgeRanges[0]);
+                        $_lb = (int)$lb;
+                        $_ub = (int)$ub;
                         $ageTeams[$teamAge]
-                            =$this->ageTeamRepository->createTeams($tss, $ageClass,[$_lb,$_ub]);
+                            = $this->ageTeamRepository->createTeams($tss, $ageClass, [$_lb, $_ub]);
                         break;
                     case 2:
-                        list($lb0,$ub0)=explode('-',$personAgeRanges[0]);
-                        list($lb1,$ub1)=explode('-',$personAgeRanges[1]);
-                        $_lb0 = (int) $lb0; $_ub0= (int) $ub0; $_lb1= (int) $lb1; $_ub1 = (int) $ub1;
+                        list($lb0, $ub0) = explode('-', $personAgeRanges[0]);
+                        list($lb1, $ub1) = explode('-', $personAgeRanges[1]);
+                        $_lb0 = (int)$lb0;
+                        $_ub0 = (int)$ub0;
+                        $_lb1 = (int)$lb1;
+                        $_ub1 = (int)$ub1;
                         $ageTeams[$teamAge]
-                            =$this->ageTeamRepository->createTeams($tss,$ageClass,[$_lb0,$_ub0],[$_lb1,$_ub1]);
+                            = $this->ageTeamRepository->createTeams($tss, $ageClass, [$_lb0, $_ub0], [$_lb1, $_ub1]);
                 }
             }
         }
     }
 
-    /**
-     * @param array $describe
-     * @param array $partnerProficiencyList
-     * @param array $personAgeRanges
-     * @return array
-     * @throws AppBuildException
-     */
-    private function personsInTeams(array $describe, array $partnerProficiencyList, array $personAgeRanges): array
+    private function tableBuild()
     {
-        $teamProficiency = $describe['proficiency'];
-        $leadProficiency = $teamProficiency;
-        $type = explode('-',$describe['type']);
-        $status= explode('-',$describe['status']);
-        $sex = explode('-',$describe['sex']);
-        $designate = ['A','B'];
-        $teamCollection = [];
-        switch(count($type)) {
-            case 1:
-                list($lb,$ub) = explode('-',$personAgeRanges[0]);
-                for($i=$lb;$i<=$ub;$i++) {
-                    if(!isset($this->person[$type[0]][$status[0]][$sex[0]][$designate[0]][$teamProficiency][$i])) {
-                        $indexing = [$type[0], $status[0], $sex[0], 'A', $teamProficiency, $i];
-                        throw new AppBuildException(AppExceptionCodes::BAD_INDEX,
-                            [__FILE__, __LINE__ - 3, 'person', $indexing]);
-                    }
-                    $person = $this->person[$type[0]][$status[0]][$sex[0]][$designate[0]][$teamProficiency][$i];
-                    $teamCollection[]=[$person];
-                }
-                break;
-            case 2:
-                list($lb0,$ub0)=explode('-',$personAgeRanges[0]);
-                list($lb1,$ub1)=explode('-',$personAgeRanges[1]);
-                for($i=$lb0;$i<=$ub0;$i++) {
-                    if(!isset($this->person[$type[0]][$status[0]][$sex[0]][$designate[0]][$leadProficiency][$i])) {
-                        $indexing = [$type[0], $status[0], $sex[0], $designate[0],$leadProficiency , $i];
-                        throw new AppBuildException(AppExceptionCodes::BAD_INDEX,
-                            [__FILE__, __LINE__ - 3, 'person', $indexing]);
-                    }
-                    $a = $this->person[$type[0]][$status[0]][$sex[0]][$designate[0]][$leadProficiency][$i];
-                    $_a= $this->person[$type[0]][$status[0]][$sex[1]][$designate[0]][$leadProficiency][$i];
-
-                    foreach($partnerProficiencyList as $followProficiency) {
-                        if(!isset($this->person[$type[0]][$status[0]][$sex[0]][$designate[0]][$followProficiency][$i])) {
-                            $indexing = [$type[0], $status[0], $sex[0], $designate[0],$leadProficiency , $i];
-                            throw new AppBuildException(AppExceptionCodes::BAD_INDEX,
-                                [__FILE__, __LINE__ - 3, 'person', $indexing]);
-                        }
-                        $a_=$this->person[$type[0]][$status[0]][$sex[0]][$designate[0]][$followProficiency][$i];
-                        for($j=$lb1;$j<=$ub1;$j++) {
-                            if(!isset($this->person[$type[1]][$status[1]][$sex[1]][$designate[1]][$followProficiency][$j])) {
-                                $indexing = [$type[0], $status[0], $sex[0], $designate[0],$followProficiency,$j];
-                                throw new AppBuildException(AppExceptionCodes::BAD_INDEX,
-                                    [__FILE__, __LINE__ - 3, 'person', $indexing]);
-                            }
-                            $b = $this->person[$type[1]][$status[1]][$sex[1]][$designate[1]][$followProficiency][$j];
-                            $_b=$this->person[$type[1]][$status[1]][$sex[0]][$designate[1]][$followProficiency][$j];
-                            $b_=$this->person[$type[1]][$status[1]][$sex[1]][$designate[1]][$leadProficiency][$j];
-                            $teamCollection[]=[$a,$b];
-                            if($leadProficiency!=$followProficiency) {
-                               $teamCollection[]=[$a_,$b_];
-                            }
-                            if($sex[0]!=$sex[1]) {
-                                $teamCollection[]=[$_a,$_b];
-                            }
-                        }
-                    }
-                }
-                break;
-        }
-        return $teamCollection;
+        $conn = $this->entityManager->getConnection();
     }
+
 }

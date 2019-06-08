@@ -64,6 +64,11 @@ class YamlDbModelSubevent
         $this->subeventRepository=$em->getRepository(Subevent::class);
     }
 
+    /**
+     * @param string $file
+     * @throws AppBuildException
+     * @throws AppParseException
+     */
     public function parseEvents(string $file)
     {
         $this->file = $file;

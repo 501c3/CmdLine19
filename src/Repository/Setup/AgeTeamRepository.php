@@ -90,6 +90,7 @@ class AgeTeamRepository extends ServiceEntityRepository
                         $team->setYears([$year])
                             ->addAgeClass($ageClass)
                             ->addTss($tss);
+                        $this->_em->persist($team);
                         $teams[]=$team;
                     }
                 }

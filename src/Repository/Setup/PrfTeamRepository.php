@@ -84,6 +84,7 @@ class PrfTeamRepository extends ServiceEntityRepository
                     $team->addTss($tss)
                         ->addPrfClass($class)
                         ->setProficiencies([$teamProficiency]);
+                    $this->_em->persist($team);
                     $teams[]=$team;
                 }
                 break;

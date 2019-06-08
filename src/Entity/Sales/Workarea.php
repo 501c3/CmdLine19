@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Workarea
  *
- * @ORM\Table(name="workarea", indexes={@ORM\Index(name="fk_workarea_channel1_idx", columns={"channel_id"}), @ORM\Index(name="fk_workarea_tag1_idx", columns={"tag_id"})})
+ * @ORM\Table(name="workarea", indexes={@ORM\Index(name="fk_workarea_tag1_idx", columns={"tag_id"}), @ORM\Index(name="fk_workarea_user1_idx", columns={"user_id"}), @ORM\Index(name="fk_workarea_channel1_idx", columns={"channel_id"})})
  * @ORM\Entity(repositoryClass="App\Repository\Sales\WorkareaRepository")
  */
 class Workarea
@@ -15,18 +15,11 @@ class Workarea
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer", nullable=false, options={"unsigned"=true})
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
-    /**
-     * @var \DateTime|null
-     *
-     * @ORM\Column(name="created_at", type="datetime", nullable=true)
-     */
-    private $createdAt;
 
     /**
      * @var \DateTime|null
@@ -36,11 +29,11 @@ class Workarea
     private $processedAt;
 
     /**
-     * @var string|null
+     * @var \DateTime
      *
-     * @ORM\Column(name="token", type="text", length=255, nullable=true)
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
-    private $token;
+    private $createdAt;
 
     /**
      * @var \App\Entity\Sales\Channel
@@ -63,19 +56,14 @@ class Workarea
     private $tag;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var \App\Entity\Sales\User
      *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Sales\Contact", mappedBy="workarea")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Sales\User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
      */
-    private $contact;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->contact = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+    private $user;
 
     /**
      * @return int
@@ -85,33 +73,6 @@ class Workarea
         return $this->id;
     }
 
-    /**
-     * @param int $id
-     * @return Workarea
-     */
-    public function setId(int $id): Workarea
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-    /**
-     * @return \DateTime|null
-     */
-    public function getCreatedAt(): ?\DateTime
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param \DateTime|null $createdAt
-     * @return Workarea
-     */
-    public function setCreatedAt(?\DateTime $createdAt): Workarea
-    {
-        $this->createdAt = $createdAt;
-        return $this;
-    }
 
     /**
      * @return \DateTime|null
@@ -132,20 +93,20 @@ class Workarea
     }
 
     /**
-     * @return string|null
+     * @return \DateTime
      */
-    public function getToken(): ?string
+    public function getCreatedAt(): \DateTime
     {
-        return $this->token;
+        return $this->createdAt;
     }
 
     /**
-     * @param string|null $token
+     * @param \DateTime $createdAt
      * @return Workarea
      */
-    public function setToken(?string $token): Workarea
+    public function setCreatedAt(\DateTime $createdAt): Workarea
     {
-        $this->token = $token;
+        $this->createdAt = $createdAt;
         return $this;
     }
 
@@ -186,22 +147,23 @@ class Workarea
     }
 
     /**
-     * @return \Doctrine\Common\Collections\Collection
+     * @return User
      */
-    public function getContact(): \Doctrine\Common\Collections\Collection
+    public function getUser(): User
     {
-        return $this->contact;
+        return $this->user;
     }
 
     /**
-     * @param \Doctrine\Common\Collections\Collection $contact
+     * @param User $user
      * @return Workarea
      */
-    public function setContact(\Doctrine\Common\Collections\Collection $contact): Workarea
+    public function setUser(User $user): Workarea
     {
-        $this->contact = $contact;
+        $this->user = $user;
         return $this;
     }
+
 
 
 

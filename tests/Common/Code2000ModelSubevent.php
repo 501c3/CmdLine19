@@ -183,6 +183,7 @@ class Code2000ModelSubevent extends KernelTestCase
    }
 
     /**
+     * @throws \App\Common\AppBuildException
      * @throws \App\Common\AppParseException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */

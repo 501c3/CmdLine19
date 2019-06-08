@@ -3,6 +3,7 @@
 namespace App\Entity\Sales;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -16,7 +17,7 @@ class Picture
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer", nullable=false, options={"unsigned"=true})
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -30,7 +31,7 @@ class Picture
     private $data;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      *
      * @ORM\ManyToMany(targetEntity="App\Entity\Sales\Form", mappedBy="picture")
      */
@@ -43,5 +44,51 @@ class Picture
     {
         $this->form = new ArrayCollection();
     }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getData(): string
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param string $data
+     * @return Picture
+     */
+    public function setData(string $data): Picture
+    {
+        $this->data = $data;
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getForm(): Collection
+    {
+        return $this->form;
+    }
+
+    /**
+     * @param Collection $form
+     * @return Picture
+     */
+    public function setForm(Collection $form): Picture
+    {
+        $this->form = $form;
+        return $this;
+    }
+
 
 }

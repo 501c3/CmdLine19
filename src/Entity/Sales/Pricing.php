@@ -7,13 +7,13 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Pricing
  *
- * @ORM\Table(name="pricing", indexes={@ORM\Index(name="fk_pricing_channel1_idx", columns={"channel_id"}), @ORM\Index(name="idx_start_at", columns={"start_at"})})
+ * @ORM\Table(name="pricing", indexes={@ORM\Index(name="idx_start_at", columns={"start_at"}), @ORM\Index(name="fk_pricing_channel1_idx", columns={"channel_id"})})
  * @ORM\Entity(repositoryClass="App\Repository\Sales\PricingRepository")
  */
 class Pricing
 {
     /**
-     * @var \DateTime
+     * @var string
      *
      * @ORM\Column(name="start_at", type="string", nullable=false)
      * @ORM\Id
@@ -73,7 +73,14 @@ class Pricing
      */
     public function setInventory(?array $inventory): Pricing
     {
-        $this->inventory = $inventory;
+        $casting = [];
+        foreach ($inventory as $category => $itemList){
+            $casting[$category]=[];
+            foreach($itemList as $itemName=>$cost){
+                $casting[$category][$itemName]=(float) $cost;
+            }
+        }
+        $this->inventory=$casting;
         return $this;
     }
 

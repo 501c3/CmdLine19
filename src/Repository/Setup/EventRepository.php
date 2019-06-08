@@ -112,14 +112,14 @@ class EventRepository extends ServiceEntityRepository
         if(!isset($arr[$modelName][$type][$status][$sex])) {
             $arr[$modelName][$type][$status][$sex]=[];
         }
-        if(!isset($arr[$modelName][$type][$status][$sex][$age])) {
-            $arr[$modelName][$type][$status][$sex][$age]=[];
+        if(!isset($arr[$modelName][$type][$status][$sex][$proficiency])) {
+            $arr[$modelName][$type][$status][$sex][$proficiency]=[];
         }
-        if(!isset($arr[$modelName][$type][$status][$sex][$age][$proficiency])) {
-            $arr[$modelName][$type][$status][$sex][$age][$proficiency] = new ArrayCollection();
+        if(!isset($arr[$modelName][$type][$status][$sex][$proficiency][$age])) {
+            $arr[$modelName][$type][$status][$sex][$proficiency][$age] = new ArrayCollection();
         }
         /** @var ArrayCollection $collection */
-        $collection = & $arr[$modelName][$type][$status][$sex][$age][$proficiency];
+        $collection = & $arr[$modelName][$type][$status][$sex][$proficiency][$age];
         $collection->add($event);
     }
 

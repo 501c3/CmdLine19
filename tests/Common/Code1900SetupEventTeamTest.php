@@ -126,13 +126,11 @@ HEREDOC;
     /**
      * @throws AppBuildException
      * @throws \App\Common\AppParseException
-     * @throws \Doctrine\DBAL\DBALException
      */
     public function test1900ValidEventTeam()
     {
         /** @noinspection PhpComposerExtensionStubsInspection */
         $expectedRelations = yaml_parse_file(__DIR__.'/setup-08-event-team.yml');
-        self::$em->getConnection()->exec('CALL build_setup()');
         $this->setup->parseEventsTeams(__DIR__.'/setup-08-event-team.yml');
         /** @var EventRepository $repository */
         $repository = self::$em->getRepository(Event::class);
@@ -147,8 +145,8 @@ HEREDOC;
                 foreach($types as $expectedEventType => $expectedTeamTypes) {
                     foreach($statii as $expectedEventStatus => $expectedTeamStatii) {
                         foreach($sexes as $expectedEventSex => $expectedTeamSexes) {
-                            foreach($ages as $expectedEventAge => $expectedTeamAges) {
-                                foreach($proficiencies as $expectedEventProficiency => $expectedTeamProficiencies) {
+                            foreach($proficiencies as $expectedEventProficiency => $expectedTeamProficiencies) {
+                                foreach($ages as $expectedEventAge => $expectedTeamAges) {
                                     $this->compareActualExpected($actual,$modelName,
                                         $expectedEventType, $expectedTeamTypes,
                                         $expectedEventStatus, $expectedTeamStatii,
@@ -189,14 +187,14 @@ HEREDOC;
     {
         /** @var ArrayCollection $actualEventCollection */
         if(!isset($actual[$modelName][$expectedEventType][$expectedEventStatus]
-                [$expectedEventSex][$expectedEventAge][$expectedEventProficiency])){
+                [$expectedEventSex][$expectedEventProficiency][$expectedEventAge])){
             $index=[$modelName,$expectedEventType,$expectedEventStatus,$expectedEventSex,
-                    $expectedEventAge,$expectedEventProficiency];
+                $expectedEventProficiency,$expectedEventAge];
             throw new AppBuildException(AppExceptionCodes::EXPECTED_STRUCTURE,
                     [__FILE__,__LINE__,'$actual',$index]);
         }
         $actualEventCollection = $actual[$modelName][$expectedEventType][$expectedEventStatus]
-                                        [$expectedEventSex][$expectedEventAge][$expectedEventProficiency];
+                                        [$expectedEventSex][$expectedEventProficiency][$expectedEventAge];
 
         /** @var Event $eventCurrent */
         $eventCurrent = $actualEventCollection->first();
@@ -211,8 +209,8 @@ HEREDOC;
             foreach($expectedTeamTypes as $expectedTeamType) {
                 foreach($expectedTeamStatii as $expectedTeamStatus) {
                     foreach($expectedTeamSexes as $expectedTeamSex) {
-                        foreach($expectedTeamAges as $expectedTeamAge) {
-                            foreach($expectedTeamProficiencies as $expectedTeamProficiency) {
+                        foreach($expectedTeamProficiencies as $expectedTeamProficiency) {
+                            foreach($expectedTeamAges as $expectedTeamAge) {
                                 $expectedDescribe=['type'=>$expectedTeamType,
                                                  'status'=>$expectedTeamStatus,
                                                  'sex'=>$expectedTeamSex,

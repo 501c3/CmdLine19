@@ -50,6 +50,9 @@ class Code1600SetupEventTest extends KernelTestCase
         'team_class',
         'team_has_person',
         'value',
+        'build',
+        'invalid_classes',
+        'invalid_person'
     ];
 
     /** @var  Kernel */
@@ -124,7 +127,9 @@ class Code1600SetupEventTest extends KernelTestCase
                 $parts = pathinfo($file);
                 if($parts['extension']=='sql'){
                     $file=$pathfile.'/'.$parts['filename'].'.'.$parts['extension'];
-                    $dumpFiles[]=$file;
+                    if(!in_array($parts['filename'],['setup_build','setup_invalid_person','setup_invalid_teams'])){
+                        $dumpFiles[]=$file;
+                    }
                 }
             }
         }

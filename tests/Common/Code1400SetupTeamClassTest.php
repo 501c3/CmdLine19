@@ -175,7 +175,7 @@ class Code1400SetupTeamClassTest extends KernelTestCase
     /**
      * @param array $expected
      */
-    private function iterateThroughDatabase(array $expected)
+    private function iterateThroughClasses(array $expected)
     {
         $em = self::$kernel->getContainer()->get('doctrine.orm.setup_entity_manager');
         /** @var TeamClassRepository $repositoryTeamClass */
@@ -193,51 +193,7 @@ class Code1400SetupTeamClassTest extends KernelTestCase
                         foreach($expectedAgeList as $expectedAge=>$collection){
                             /** @var Team $team */
                             foreach($collection as $team) {
-//                                $members = $team->getPersonMembers()->toArray();
-//                                switch(count($members)) {
-//                                    case 1:
-//                                        /** @var Person $soloPerson */
-//                                        $soloPerson = $members[0];
-//                                        $describe = $soloPerson->getDescribe();
-//                                        $this->assertEquals($expectedStatus, $describe['status']);
-//                                        $this->assertEquals($expectedType, $describe['type']);
-//                                        $this->assertEquals($expectedProficiency, $describe['proficiency']);
-//                                        $this->assertEquals('A', $describe['designate']);
-//                                        break;
-//                                    case 2:
-//                                        /** @var Person $leftPerson */
-//                                        $leftPerson = $members[0];
-//                                        /** @var Person $rightPerson */
-//                                        $rightPerson = $members[1];
-//                                        $leftDescribe = $leftPerson->getDescribe();
-//                                        $rightDescribe = $rightPerson->getDescribe();
-//                                        $this->assertEquals($leftDescribe['designate'], 'A');
-//                                        $this->assertEquals($rightDescribe['designate'], 'B');
-//                                        $teamProficiency = $leftDescribe['proficiency'] == $expectedProficiency ?
-//                                            $leftDescribe['proficiency'] : $rightDescribe['proficiency'];
-//                                        $this->assertEquals($expectedProficiency, $teamProficiency);
-//                                        switch ($leftDescribe['sex']) {
-//                                            case 'Male':
-//                                                switch ($rightDescribe['sex']) {
-//                                                    case 'Male':
-//                                                        $this->assertEquals($expectedSex, 'Male-Male');
-//                                                        break;
-//                                                    case 'Female':
-//                                                        $this->assertEquals($expectedSex, 'Male-Female');
-//                                                        break;
-//                                                }
-//                                                break;
-//                                            case 'Female':
-//                                                switch ($rightDescribe['sex']) {
-//                                                    case 'Male':
-//                                                        $this->assertEquals($expectedSex, 'Male-Female');
-//                                                        break;
-//                                                    case 'Female':
-//                                                        $this->assertEquals($expectedSex, 'Female-Female');
-//                                                }
-//                                                break;
-//                                        }
-//                                }
+
                             }
                         }
                     }
@@ -275,10 +231,22 @@ class Code1400SetupTeamClassTest extends KernelTestCase
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function test1470ValidTeams()
+    public function test1470ValidTeamClass()
     {
         $expected = $this->setup->parseTeams(__DIR__ . '/../../tests/Common/data-1470-valid-teams.yml');
-        $this->iterateThroughDatabase($expected);
+        $this->iterateThroughClasses($expected);
+    }
+
+
+    /**
+     * @throws \App\Common\AppParseException
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function test1480ValidTeamClassSolo()
+    {
+        $expected = $this->setup->parseTeams(__DIR__ . '/../../tests/Common/data-1480-valid_teams-solo.yml');
+        $this->iterateThroughClasses($expected);
     }
 
     /**
@@ -286,9 +254,9 @@ class Code1400SetupTeamClassTest extends KernelTestCase
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function test1500TeamValidComplete()
+    public function test1500TeamClassComplete()
     {
         $expected = $this->setup->parseTeams(__DIR__ . '/../../tests/Common/setup-06-teams.yml');
-        $this->iterateThroughDatabase($expected);
+        $this->iterateThroughClasses($expected);
     }
 }

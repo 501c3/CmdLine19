@@ -54,7 +54,7 @@ ISTD Medal Exams-2019:
         - Championship
         - Gold Star 2
     age:
-      Adult 16-50: [Y16-16,Y17-17,Y18-18,Y19-34,Y35-44,Y45-49]
+      Adult 16-50: [Y19-34,Y35-44,Y45-49]
       Senior 50: [Y50-54,Y55-64,Y65-74,Y75-99]
     sex:
       Mixed Sex: [Male-Female,Male-Male,Female-Female]
@@ -64,7 +64,6 @@ ISTD Medal Exams-2019:
       Mixed Type: [Amateur-Amateur]
   - proficiency:
       Pre Bronze:
-        - Newcomer
         - Pre Bronze
       Bronze:
         - Pre Bronze
@@ -128,7 +127,7 @@ ISTD Medal Exams-2019:
       Gold Star 2:
         - Gold Star 2
     age:
-      Adult 16-50: [Y16-16,Y17-17,Y18-18,Y19-34,Y35-44,Y45-49]
+      Adult 16-50: [Y19-34,Y35-44,Y45-49]
       Senior 50: [Y50-54,Y55-64,Y65-74,Y75-99]
     sex:
       Mixed Sex: [Male-Female,Male-Male,Female-Female]

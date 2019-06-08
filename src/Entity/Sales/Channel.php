@@ -15,39 +15,11 @@ class Channel
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="smallint", nullable=false, options={"unsigned"=true})
+     * @ORM\Column(name="id", type="smallint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="created_at", type="datetime", nullable=false)
-     */
-    private $createdAt;
-
-    /**
-     * @var array
-     *
-     * @ORM\Column(name="heading", type="json", nullable=false)
-     */
-    private $heading;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="live", type="boolean", nullable=false)
-     */
-    private $live = '0';
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="logo", type="blob", length=65535, nullable=false)
-     */
-    private $logo;
 
     /**
      * @var string
@@ -59,16 +31,37 @@ class Channel
     /**
      * @var \DateTime|null
      *
+     * @ORM\Column(name="online_at", type="datetime", nullable=true)
+     */
+    private $onlineAt;
+
+    /**
+     * @var \DateTime|null
+     *
      * @ORM\Column(name="offline_at", type="datetime", nullable=true)
      */
     private $offlineAt;
 
     /**
-     * @var \DateTime|null
+     * @var bool
      *
-     * @ORM\Column(name="online_at", type="datetime", nullable=true)
+     * @ORM\Column(name="live", type="boolean", nullable=false)
      */
-    private $onlineAt;
+    private $live = '0';
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="heading", type="json", nullable=false)
+     */
+    private $heading;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="logo", type="blob", length=65535, nullable=false)
+     */
+    private $logo;
 
     /**
      * @var array|null
@@ -78,89 +71,27 @@ class Channel
     private $parameters;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     */
+    private $createdAt;
+
+    /**
      * @var \DateTime|null
      *
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt;
 
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
 
     /**
-     * @return \DateTime
-     */
-    public function getCreatedAt(): \DateTime
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param \DateTime $createdAt
+     * @param int $id
      * @return Channel
      */
-    public function setCreatedAt(\DateTime $createdAt): Channel
+    public function setId(int $id): Channel
     {
-        $this->createdAt = $createdAt;
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getHeading(): array
-    {
-        return $this->heading;
-    }
-
-    /**
-     * @param array $heading
-     * @return Channel
-     */
-    public function setHeading(array $heading): Channel
-    {
-        $this->heading = $heading;
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isLive(): bool
-    {
-        return $this->live;
-    }
-
-    /**
-     * @param bool $live
-     * @return Channel
-     */
-    public function setLive(bool $live): Channel
-    {
-        $this->live = $live;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLogo(): string
-    {
-        return $this->logo;
-    }
-
-    /**
-     * @param string $logo
-     * @return Channel
-     */
-    public function setLogo(string $logo): Channel
-    {
-        $this->logo = $logo;
+        $this->id = $id;
         return $this;
     }
 
@@ -185,6 +116,24 @@ class Channel
     /**
      * @return \DateTime|null
      */
+    public function getOnlineAt(): ?\DateTime
+    {
+        return $this->onlineAt;
+    }
+
+    /**
+     * @param \DateTime|null $onlineAt
+     * @return Channel
+     */
+    public function setOnlineAt(?\DateTime $onlineAt): Channel
+    {
+        $this->onlineAt = $onlineAt;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
     public function getOfflineAt(): ?\DateTime
     {
         return $this->offlineAt;
@@ -201,20 +150,56 @@ class Channel
     }
 
     /**
-     * @return \DateTime|null
+     * @return bool
      */
-    public function getOnlineAt(): ?\DateTime
+    public function isLive(): bool
     {
-        return $this->onlineAt;
+        return $this->live;
     }
 
     /**
-     * @param \DateTime|null $onlineAt
+     * @param bool $live
      * @return Channel
      */
-    public function setOnlineAt(?\DateTime $onlineAt): Channel
+    public function setLive(bool $live): Channel
     {
-        $this->onlineAt = $onlineAt;
+        $this->live = $live;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getHeading(): array
+    {
+        return $this->heading;
+    }
+
+    /**
+     * @param array $heading
+     * @return Channel
+     */
+    public function setHeading(array $heading): Channel
+    {
+        $this->heading = $heading;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLogo(): string
+    {
+        return $this->logo;
+    }
+
+    /**
+     * @param string $logo
+     * @return Channel
+     */
+    public function setLogo(string $logo): Channel
+    {
+        $this->logo = $logo;
         return $this;
     }
 
@@ -237,6 +222,24 @@ class Channel
     }
 
     /**
+     * @return \DateTime
+     */
+    public function getCreatedAt(): \DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTime $createdAt
+     * @return Channel
+     */
+    public function setCreatedAt(\DateTime $createdAt): Channel
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
      * @return \DateTime|null
      */
     public function getUpdatedAt(): ?\DateTime
@@ -253,4 +256,7 @@ class Channel
         $this->updatedAt = $updatedAt;
         return $this;
     }
+
+
+
 }

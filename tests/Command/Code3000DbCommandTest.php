@@ -41,14 +41,15 @@ class Code3000DbCommandTest extends KernelTestCase
 
     /** @var EntityManagerInterface */
     private static $emSetup;
-    /**
-     * @throws \Doctrine\DBAL\DBALException
-     */
+
     public static function setUpBeforeClass()
     {
         (new Dotenv())->load(__DIR__.'/../../.env');
     }
 
+    /**
+     * @throws \Doctrine\DBAL\DBALException
+     */
     public function setUp()
     {
         self::$kernel = self::bootKernel();
@@ -61,7 +62,6 @@ class Code3000DbCommandTest extends KernelTestCase
     }
 
     /**
-     * @param string $dbname
      * @throws \Doctrine\DBAL\DBALException
      */
     private static function purgeDatabase()

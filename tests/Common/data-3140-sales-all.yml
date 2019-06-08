@@ -10,7 +10,6 @@ state: GA
 date: {start: 2019-09-21,finish: 2019-09-22}
 monitor:
     Mark Garber: mgarber@georgiadancesport.org
-    Steve Garber: 501c3.management@gmail.com
 inventory:
     2019-09-01:
         participant:
@@ -29,7 +28,7 @@ inventory:
         extra:
             spectator-adult: 10
             spectator-child: 7
-            printed-program: 7.00
+            printed-program: 7
 processor:
     PayPal:
         test:

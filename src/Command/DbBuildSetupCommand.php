@@ -103,7 +103,7 @@ class DbBuildSetupCommand extends Command
 
         $sectionCount = 4 + $personSectionCount + $teamSectionCount + $eventSectionCount + $eventTeamSectionCount;
 
-        $io->note('Commencing setup database build.  Expected duration 5-7 hours.');
+        $io->note('Commencing setup database build.  Expected duration 1 day+.');
 
         $event = new ProcessEvent(new ProcessStatus(ProcessStatus::COMMENCE, $sectionCount));
 
@@ -158,7 +158,9 @@ class DbBuildSetupCommand extends Command
 
         $conn = $this->entityManager->getConnection();
 
-        $conn->query('CALL build_setup()');
+        $conn->query('CALL pre_build()');
+
+        $conn->query('CALL build_teams()');
 
         $this->setup['event']->parseEvents($filesToParse['events']);
 

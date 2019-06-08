@@ -175,25 +175,24 @@ class YamlDbSetupEventTeam
                 foreach($types as $eventType => $teamTypes){
                     foreach($statuses as $eventStatus=>$teamStatuses) {
                         foreach($sexes as $eventSex=>$teamSexes) {
-                            foreach($ages as $eventAge=>$teamAges) {
-                                foreach($proficiencies as $eventProficiency=>$teamProficiencies) {
+                            foreach($proficiencies as $eventProficiency=>$teamProficiencies) {
+                                foreach($ages as $eventAge=>$teamAges) {
                                     if(!isset($eventHash[$model][$eventType][$eventStatus]
-                                                        [$eventSex][$eventAge][$eventProficiency])) {
-                                        $index = [$model,$eventType,$eventStatus,$eventSex,$eventAge,$eventProficiency];
+                                                        [$eventSex][$eventProficiency][$eventAge])) {
+                                        $index = [$model,$eventType,$eventStatus,$eventSex,$eventProficiency,$eventAge];
                                         throw new AppBuildException(AppExceptionCodes::BAD_INDEX,
                                                     [__FILE__,__LINE__-4,'eventHash',$index]);
-
                                     }
                                     $eventCollection = $eventHash[$model][$eventType][$eventStatus]
-                                                                 [$eventSex][$eventAge][$eventProficiency];
+                                                                 [$eventSex][$eventProficiency][$eventAge];
                                     $this->addTeamsToEventCollection(
                                             $eventCollection,
                                             $teamClassesHash,
                                             $teamTypes,
                                             $teamStatuses,
                                             $teamSexes,
-                                            $teamAges,
-                                            $teamProficiencies);
+                                            $teamProficiencies,
+                                            $teamAges);
                                 }
                             }
                         }
@@ -211,9 +210,8 @@ class YamlDbSetupEventTeam
      * @param array $teamTypes
      * @param array $teamStatuses
      * @param array $teamSexes
-     * @param array $teamAges
      * @param array $teamProficiencies
-     * @throws AppBuildException
+     * @param array $teamAges
      */
     private function addTeamsToEventCollection(
         ArrayCollection $eventCollection,
@@ -221,8 +219,8 @@ class YamlDbSetupEventTeam
         array $teamTypes,
         array $teamStatuses,
         array $teamSexes,
-        array $teamAges,
-        array $teamProficiencies)
+        array $teamProficiencies,
+        array $teamAges)
     {
         /** @var Event $event */
         $event = $eventCollection->first();
@@ -233,18 +231,21 @@ class YamlDbSetupEventTeam
                 foreach($teamStatuses as $status) {
                     /** @var string $sex */
                     foreach($teamSexes as $sex) {
-                        /** @var string $age */
-                        foreach($teamAges as $age) {
-                            /** @var string $proficiency */
-                            foreach($teamProficiencies as $proficiency) {
-                                if(!isset($teamClassesHash[$type][$status][$sex][$age][$proficiency])) {
-                                    $index = [$type,$status,$sex,$age,$proficiency];
-                                    throw new AppBuildException(AppExceptionCodes::BAD_INDEX,
-                                        [__FILE__,__LINE__-2,'teamClassesHash',$index]);
-                                }
+                        /** @var string $proficiency */
+                        foreach($teamProficiencies as $proficiency) {
+                            /** @var string $age */
+                            foreach($teamAges as $age) {
+                                if(isset($teamClassesHash[$type][$status][$sex][$proficiency][$age])) {
                                     /** @var TeamClass $teamClass */
-                                    $teamClass = $teamClassesHash[$type][$status][$sex][$age][$proficiency];
-                                    $eventTeams->set($teamClass->getId(),$teamClass);
+                                    $teamClass = $teamClassesHash[$type][$status][$sex][$proficiency][$age];
+                                    $eventTeams->set($teamClass->getId(), $teamClass);
+                                }
+//                                else {
+//                          TODO: Write to database
+//                                    $index = [$type,$status,$sex,$proficiency,$age];
+//                                    throw new AppBuildException(AppExceptionCodes::BAD_INDEX,
+//                                        [__FILE__,__LINE__-2,'teamClassesHash',$index]);
+//                                }
                             }
                         }
                     }
